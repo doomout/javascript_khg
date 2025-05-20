@@ -25,3 +25,9 @@ console.log(typeof('문자열' - 0)); // number
 console.log('숫자로 형변환이 가능하면 연산이 된다.');
 console.log('5' - 2); // 3
 console.log(typeof('5' - 2)); // number
+
+console.log('실수 연산시 주의점: 그냥 연산시 오차가 발생');
+console.log(0.1 + 0.2); // 0.30000000000000004
+console.log(0.1 + 0.2 === 0.3); // false
+console.log('그래서 실수를 정수로 바꾸고 연산 후 다시 실수로 바꿈'); 
+console.log((0.1 * 10 + 0.2 * 10) / 10); // 0.3
