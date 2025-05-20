@@ -22,3 +22,19 @@ console.log(!!0); // false
 console.log(!!NaN); // false
 console.log(!!null); // false
 console.log(!!undefined); // false
+
+console.log('논리 연산자 사용시 주의점: ');
+console.log('&& 연산자는 앞이 거짓이면 앞의 값을, \n앞이 참이면 뒤의 값을 결과로 보낸다.');
+console.log(5 && 4); // 4
+console.log('' && 6); // ''
+
+console.log('|| 연산자는 앞이 참이면 앞의 값을, \n앞이 거짓이면 뒤의 값을 결과로 보낸다.'); 
+console.log('hi' || 5); // hi
+console.log(0 || 5); // 5
+console.log(null || 6); // 6
+
+console.log('?? 연산자는 앞이 null 이거나 undefined이면 뒤의 값을, \n앞이 null 이거나 undefined가 아니면 앞의 값을 결과로 보낸다.');
+console.log('hi' ?? 5); // hi
+console.log(0 ?? 6); // 0    
+console.log(null ?? 5); // 5
+console.log(undefined ?? 5); // 5
