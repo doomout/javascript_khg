@@ -38,3 +38,13 @@ console.log('hi' ?? 5); // hi
 console.log(0 ?? 6); // 0    
 console.log(null ?? 5); // 5
 console.log(undefined ?? 5); // 5
+
+console.log('undefined는 빈 값을 표현한다.');
+console.log(undefined == false); // false
+console.log(undefined == 0); // false
+console.log(undefined == ''); // false
+
+console.log('undefined 와 null은 다음과 같은 특징이 있다.');
+console.log(undefined == null); // true
+console.log(undefined === null); // false
+console.log(!!null); // false
