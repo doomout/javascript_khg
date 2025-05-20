@@ -31,3 +31,27 @@ console.log(0.1 + 0.2); // 0.30000000000000004
 console.log(0.1 + 0.2 === 0.3); // false
 console.log('그래서 실수를 정수로 바꾸고 연산 후 다시 실수로 바꿈'); 
 console.log((0.1 * 10 + 0.2 * 10) / 10); // 0.3
+
+console.log('boolean 연산자');
+console.log(true); // true
+console.log(false); // false
+console.log(typeof(true)); // boolean
+
+console.log('비교 연산자');
+console.log(5 > 3); // true
+console.log(5 < 3); // false
+console.log(5 >= 3); // true    
+console.log(5 <= 3); // false
+console.log(5 == 3); // false
+console.log(5 != 3); // true
+
+console.log('불 값 끼리 비교(true는 1, false은 0으로 변환되어 비교)');
+console.log(true > true); // true
+console.log(true < true); // false
+
+console.log('비교할 때 유일하게 false 가 나오는 비교 NaN 비교'); // false
+console.log(NaN == NaN); // false
+
+console.log('==는 값만 비교, ===는 값과 타입을 비교');
+console.log(5 === 3); // false
+console.log(5 !== 3); // true
