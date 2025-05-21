@@ -61,3 +61,35 @@ if (first) {
 첫 번째 조건 충족!
 두 번째 조건 불충족!
 */
+
+// switch 문
+let value1 = 'a';
+switch (value1) {
+    case 'a':
+        console.log("a입니다.");
+        console.log("A입니다.");
+        break;
+    case 'b':
+        console.log("b입니다.");
+        console.log("B입니다.");
+        break;
+    default:
+        console.log("a도 b도 아닙니다.");
+}
+
+// switch 문 (default 가 앞으로 올 수도 있다)
+let fruit = 'aaa';
+switch (fruit) {
+    default:
+        console.log("과일이 아닙니다.");
+        break;
+    case '사과':
+        console.log("사과입니다.");
+        break;
+    case '바나나':
+        console.log("바나나입니다.");
+        break;
+    case '체리':
+        console.log("체리입니다.");
+        break;
+}
