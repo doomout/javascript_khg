@@ -12,4 +12,7 @@ console.log(한글); // 안녕하세요
 const value = "상수다";
 console.log(value); // 상수다
 
-value = "변경"; // TypeError: Assignment to constant variable
+//value = "변경"; // TypeError: Assignment to constant variable
+
+// var 은 이제 안쓰는 추세다
+// 기본적으로 const를 쓰고, 꼭 필요할 때만 let을 쓰는 패턴이 많다.
