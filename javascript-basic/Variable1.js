@@ -9,3 +9,7 @@ console.log(string); // Hello, Variable!
 let 한글 = "안녕하세요";
 console.log(한글); // 안녕하세요
 
+const value = "상수다";
+console.log(value); // 상수다
+
+value = "변경"; // TypeError: Assignment to constant variable
