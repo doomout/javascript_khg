@@ -93,3 +93,27 @@ switch (fruit) {
         console.log("체리입니다.");
         break;
 }
+
+// 조건부 연산자
+let num = 10;
+let result = (num > 5) ? "참이다" : "거짓이다.";
+console.log(result); // 참이다
+
+// 조건부 연산자와 if 문 비교
+let condition1 = true;
+let value2 = condition1 ? "참" : "거짓";
+console.log(value2); // 참
+
+let condition2 = true;
+if (condition2) {
+    value2 = "참";
+} else { 
+    value2 = "거짓";
+}
+console.log(value2); // 참
+
+// 조건부 연산자 중복
+let num1 = true;
+let num2 = false;
+let value3 = num1 ? (num2 ? "둘다 참" : "num1만 참") : "num1이 거짓"; 
+console.log(value3); // num1만 참
