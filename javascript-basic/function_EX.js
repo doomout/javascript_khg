@@ -63,3 +63,38 @@ add(10, 20); // 30
 add(10, 20, 30); // 30 (추가 인수는 무시됨)
 add(10); // NaN (y가 undefined이므로 10 + undefined는 NaN)
 add(); // NaN (x와 y가 모두 undefined이므로 undefined + undefined는 NaN)
+
+// 6. 다른 변수 사용하기
+function minus1(x, y) {
+    const a = 100;
+    return (x - y) * a;
+}
+console.log(minus1(5, 3)); // 200
+
+const aa = 100;
+function minus2(x, y) {
+    return (x - y) * aa; // 외부 변수 aa를 사용
+}
+console.log(minus2(5, 3)); // 200
+
+// 7. 고차 함수 사용하기
+const func = () => {
+    return () => {
+        console.log("내부 함수 실행");
+    };
+};
+const innerFunc = func();
+innerFunc(); // 내부 함수 실행
+
+const func2= (msg) => {
+    return () => {
+        console.log(msg);
+    };
+};
+
+const innerFunc1 = func2("Hello");
+const innerFunc2 = func2("javascript");
+const innerFunc3 = func2();
+innerFunc1(); // Hello
+innerFunc2(); // javascript
+innerFunc3(); // undefined
