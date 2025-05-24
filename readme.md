@@ -127,3 +127,26 @@ const person = {
 
 person.greet();  // 안녕하세요, Alice
 ```
+### 8. 2차원 배열, flat(), fill()
+```js
+// flat() 예제
+// 2차원 배열 선언
+const array = [[1,2,3], [4,5,6], [7,8,9]];
+// flat()은 배열의 차원을 한 단계 낮추는 기능
+console.log(array.flat()); 
+/* 실행 결과
+[
+  1, 2, 3, 4, 5, 6, 7, 8, 9
+]
+*/
+```
+```js
+// fill() 예제
+// 5의 길이의 빈 배열 생성
+const empty = Array(5);
+// fill()은 배열의 모든 요소를 지정한 값으로 채우는 기능
+console.log(empty.fill());  // [ undefined, undefined, undefined, undefined, undefined ]
+// fill()에 값을 넣으면 해당 값으로 채워진다.
+console.log(empty.fill(1)); // [ 1, 1, 1, 1, 1 ]
+
+```
