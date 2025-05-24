@@ -127,7 +127,7 @@ const person = {
 
 person.greet();  // 안녕하세요, Alice
 ```
-### 8. 2차원 배열, flat(), fill()
+### 8. 2차원 배열, flat(), fill(), Set()
 ```js
 // flat() 예제
 // 2차원 배열 선언
@@ -149,4 +149,17 @@ console.log(empty.fill());  // [ undefined, undefined, undefined, undefined, und
 // fill()에 값을 넣으면 해당 값으로 채워진다.
 console.log(empty.fill(1)); // [ 1, 1, 1, 1, 1 ]
 
+```
+```js
+// Set()로 중복 제거
+const array_set = [1,2,1,3,3,5];
+console.log(new Set(array_set)); // Set(4) { 1, 2, 3, 5 }
+
+// Set의 요소 개수를 구할 때는 size 속성을 사용한다.
+console.log(new Set(string_set).size); // 3
+
+// Set은 배열의 메서드를 사용할 수 없기 때문에, 다시 배열로 변환해야 한다.
+// Set을 배열로 변환할 때는 Array.from()를 사용한다.
+const uniqueArray = Array.from(new Set(array_set));
+console.log(uniqueArray); // [ 1, 2, 3, 5 ]
 ```
