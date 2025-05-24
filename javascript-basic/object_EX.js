@@ -22,3 +22,42 @@ qwer.age = 21; // 속성 추가
 qwer.year = 2003; // 속성 수정
 delete qwer.month; // 속성 삭제
 console.log(qwer.age, qwer.year, qwer.month); // 21 2003 undefined
+
+// 4. 메서드 이해하기 (속성 값으로 함수가 들어가면 메서드라고 한다.)
+const debug = {
+    log: function(value) {
+        console.log(value);
+    },
+};
+debug.log('Hello, Method'); // Hello, Method
+
+// 5. 중첩된 객체
+const qwer1 = {
+    name : {
+        first: '거대',
+        last: '냥이',
+    },
+    gender : "Cat",
+};
+console.log(qwer1.name.first); // '거대'
+console.log(qwer1['name'].last); // '냥이'
+console.log(qwer1.name['first']); // '거대'
+
+// 6. 옵셔널 체이닝 연산자 사용 예제
+// ?. 객체에 어떤 속성이 있는지 잘 모를 때 사용
+console.log(qwer1.name?.first); // '거대' (?. 사용으로 안전하게 접근)
+console.log(qwer1.name?.middle); // undefined (?. middle 속성이 없어서 undefined)
+
+// 7. 객체의 얕은 복사 
+const array1 = [{j: 'k'}, {l: 'm'}];
+const shallow = [...array1]; // 얕은 복사(외부 객체만 복사 되고, 내부 객체 참조 관계는 유지)
+console.log(array1 === shallow); // false (다른 객체)
+console.log(array1[0] === shallow[0]); // true (내부 객체는 같은 참조)
+
+const shallow2 = array1.slice(); // 얕은 복사(외부 객체만 복사 되고, 내부 객체 참조 관계는 유지)
+console.log(array1 === shallow2); // false (다른 객체)
+console.log(array1[0] === shallow2[0]); // true (내부 객체는 같은 참조)
+
+const shallow3 = array1.concat(); // 얕은 복사(외부 객체만 복사 되고, 내부 객체 참조 관계는 유지)
+console.log(array1 === shallow3); // false (다른 객체)
+console.log(array1[0] === shallow3[0]); // true (내부 객체는 같은 참조)
