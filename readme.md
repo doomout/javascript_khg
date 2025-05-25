@@ -115,17 +115,75 @@ fruits.splice(1, 2); // 1번 인덱스부터 2개 삭제 ("키위", "바나나")
 // 결과: ["망고", "포도"]
 
 ```
-### 7. 객체 다루기
+### 7. JavaScript 객체 요약
 ```js
+// 1. 객체 생성
 const person = {
-  name: "Alice",
-  age: 25,
-  greet() {
-    console.log("안녕하세요, " + this.name);
-  }
+  name: "홍길동",
+  age: 30,
 };
 
-person.greet();  // 안녕하세요, Alice
+// 2. 속성 접근
+console.log(person.name);    // 점 표기법
+console.log(person["age"]);  // 대괄호 표기법
+
+// 3. 속성 추가
+person.job = "개발자";       // 점 표기법으로 속성 추가
+person["gender"] = "남성";   // 대괄호 표기법으로 속성 추가
+
+// 4. 속성 수정
+person.age = 31;             // 기존 속성 값 수정
+
+// 5. 속성 삭제
+delete person.job;           // job 속성 제거
+
+// 6. 메서드 정의 및 호출
+const user = {
+  name: "영희",
+  greet() {
+    // this는 객체 자신을 가리킴
+    console.log(`안녕하세요, 저는 ${this.name}입니다.`);
+  }
+};
+user.greet(); // "안녕하세요, 저는 영희입니다."
+
+// 7. 옵셔널 체이닝 (?.)
+const data = {
+  user: {
+    name: "민수"
+  }
+};
+console.log(data.user?.name);     // "민수"
+console.log(data.admin?.name);    // undefined (오류 안 남)
+
+// 8. 얕은 복사 (Shallow Copy)
+const original = { a: 1, b: 2 };
+const copy = { ...original };     // 스프레드 연산자
+copy.a = 100;
+console.log(original.a);          // 1 (원본은 그대로)
+
+// 주의점 :  중첩 객체가 있을 땐 참조가 복사됨
+const original = { nested: { x: 1 } };
+const copy = { ...original };
+copy.nested.x = 99;
+console.log(original.nested.x);   // 99 (같은 객체 참조)
+
+// 9. 깊은 복사 (Deep Copy)
+const original = { nested: { x: 1 } };
+const deepCopy = JSON.parse(JSON.stringify(original));
+
+deepCopy.nested.x = 100;
+console.log(original.nested.x);   // 1 (원본 유지)
+
+// 10. 구조 분해 할당 (Destructuring)
+const user = { name: "철수", age: 20 };
+// 동일한 이름의 변수에 값 할당
+const { name, age } = user;
+console.log(name); // "철수"
+console.log(age);  // 20
+// 변수 이름 변경
+const { name: userName } = user;
+console.log(userName); // "철수"
 ```
 ### 8. 2차원 배열, flat(), fill(), Set()
 ```js
