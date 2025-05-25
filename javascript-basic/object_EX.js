@@ -61,3 +61,32 @@ console.log(array1[0] === shallow2[0]); // true (내부 객체는 같은 참조)
 const shallow3 = array1.concat(); // 얕은 복사(외부 객체만 복사 되고, 내부 객체 참조 관계는 유지)
 console.log(array1 === shallow3); // false (다른 객체)
 console.log(array1[0] === shallow3[0]); // true (내부 객체는 같은 참조)
+
+// 8. 객체의 깊은 복사
+const array2 = [{a: 'b'}, {c: 'd'}];
+const deep = JSON.parse(JSON.stringify(array2)); // 깊은 복사
+console.log(array2 === deep); // false
+console.log(array2[0] === deep[0]); // false
+
+// 9. 구조 분해 할당
+// 객체의 속성 이름과 대입하는 변수명이 같을 때 다음과 같이 줄여서 쓸 수 있다.
+const obj = { a: 1, b: 2};
+//const a = obj.a;
+//const b = obj.b;
+const {a, b} = obj; // 주석 부분을 한 줄로 표현
+console.log(a); // 1
+console.log(b); // 2
+
+// 배열도 구조 분해 할당을 적용할 수 있다.
+const array3 = [1,2,5];
+//const one = array3[0];
+//const two = array3[1];
+//const five = array3[2];
+const [one, two, five] = array3; //위의 3줄을 한 줄로 요약
+console.log(five); // 5
+
+// 이미 선언된 변수에도 구조분해 할당을 할 수 있다.
+// 이 예제는 변수 c와 d의 값을 서로 바꾸는 코드
+let c = 5;
+let d = 3;
+console.log([d, c] = [c, d]);  // [ 5, 3 ]
