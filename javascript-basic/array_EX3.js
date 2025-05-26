@@ -35,11 +35,21 @@ const array2 = [1, 3, 5, 7];
  
 console.log(array2.find((v, i) => {
     return v > 1;
-}));
- // 3
+})); // 3
 
 // 4. findIndex() : find()와 동일한 조건으로 인덱스를 반환, 못 찾으면 -1 반환
 console.log(array2.findIndex((v, i) => {
     return v > 1;
-}));
-// 1
+})); // 1
+
+// 5. filter() : 조건에 맞는 요소를 모두 반환
+console.log(array2.filter((v, i) => {
+    return v > 1;
+})); // [ 3, 5, 7 ]
+
+const nested = [{age: 29}, {age: 5}, {age: 3}];
+console.log(nested.filter((v) => {
+    return v.age < 29
+})); //[ { age: 5 }, { age: 3 } ]
+// 화살표 함수로 간단히 표현
+console.log(nested.filter((v) => v.age < 29 )); // [ { age: 5 }, { age: 3 } ]
