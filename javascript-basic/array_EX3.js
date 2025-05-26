@@ -29,3 +29,11 @@ const newArray = array1.map((v, i) => {
 });
 console.log(array1); // [ 1, 3, 5, 7 ]
 console.log(newArray); // [ 2, 6, 10, 14 ]
+
+// 3. find()
+const array2 = [1, 3, 5, 7];
+ 
+console.log(array2.find((v, i) => {
+    return v > 1;
+}));
+ // 3
