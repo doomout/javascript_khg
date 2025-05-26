@@ -37,3 +37,9 @@ console.log(array2.find((v, i) => {
     return v > 1;
 }));
  // 3
+
+// 4. findIndex() : find()와 동일한 조건으로 인덱스를 반환, 못 찾으면 -1 반환
+console.log(array2.findIndex((v, i) => {
+    return v > 1;
+}));
+// 1
