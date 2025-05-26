@@ -297,3 +297,18 @@ const arr2 = [1, 5, 4, 2, 3];
 arr2.sort((a, b) => b - a); // 내림차순 정렬
 console.log(arr2); // [ 5, 4, 3, 2, 1 ]
 ```
+- reduce() : 배열을 하나의 값으로 줄임
+```js
+const arr4 = [1,2,3,4,5].reduce((a,c) => {
+    return a + c;
+}, 0);
+console.log(arr4); // 15
+
+// reduce()를 사용한 객체 만들기
+const arr5 = [1,2,3,4,5].reduce((a,c) => {
+   a[c] = c * 10;
+    return a;
+}, {});
+console.log(arr5); 
+// { '1': 10, '2': 20, '3': 30, '4': 40, '5': 50 }
+```

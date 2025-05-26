@@ -66,9 +66,35 @@ sort()에 넘겨주는 함수 (a, b)는 배열의 두 요소 a와 b를 비교해
 양수를 반환하면 → a가 b보다 뒤에 오게 한다
 */
 const arr1 = [1, 5, 4, 2, 3];
+
 arr1.sort((a, b) => a - b); // 오름차순 정렬
 console.log(arr1); // [ 1, 2, 3, 4, 5 ]
 
 const arr2 = [1, 5, 4, 2, 3];
 arr2.sort((a, b) => b - a); // 내림차순 정렬
 console.log(arr2); // [ 5, 4, 3, 2, 1 ]
+
+// 원본을 남기고 정렬하기
+const arr3 = [9, 5, 4, 2, 3, 7, 1];
+const shallow = [...arr3]; // 얕은 복사
+shallow.sort((a, b) => a - b); // 오름차순 정렬
+console.log(shallow); // [1, 2, 3, 4, 5, 7, 9]
+console.log(arr3); // [9, 5, 4, 2, 3, 7, 1 ] (원본은 변경되지 않음)
+
+// 7. reduce() : 배열을 하나의 값으로 줄임
+/*형식
+배열.reduce((누적값, 현재값, 현재인덱스, 원본배열) => {
+    // 누적값을 변경하는 로직
+}, 초기값);
+*/
+const arr4 = [1,2,3,4,5].reduce((a,c) => {
+    return a + c;
+}, 0);
+console.log(arr4); // 15
+
+// reduce()를 사용한 객체 만들기
+const arr5 = [1,2,3,4,5].reduce((a,c) => {
+   a[c] = c * 10;
+    return a;
+}, {});
+console.log(arr5); // { '1': 10, '2': 20, '3': 30, '4': 40, '5': 50 }
