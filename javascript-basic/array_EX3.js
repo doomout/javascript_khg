@@ -53,3 +53,22 @@ console.log(nested.filter((v) => {
 })); //[ { age: 5 }, { age: 3 } ]
 // 화살표 함수로 간단히 표현
 console.log(nested.filter((v) => v.age < 29 )); // [ { age: 5 }, { age: 3 } ]
+
+// 6. sort() : 배열을 정렬
+/* 
+정렬 함수 (a, b) => a - b 의미 설명:
+sort()에 넘겨주는 함수 (a, b)는 배열의 두 요소 a와 b를 비교해서:
+
+음수를 반환하면 → a가 b보다 앞에 오게 한다
+
+0을 반환하면 → 순서를 바꾸지 않는다
+
+양수를 반환하면 → a가 b보다 뒤에 오게 한다
+*/
+const arr1 = [1, 5, 4, 2, 3];
+arr1.sort((a, b) => a - b); // 오름차순 정렬
+console.log(arr1); // [ 1, 2, 3, 4, 5 ]
+
+const arr2 = [1, 5, 4, 2, 3];
+arr2.sort((a, b) => b - a); // 내림차순 정렬
+console.log(arr2); // [ 5, 4, 3, 2, 1 ]
