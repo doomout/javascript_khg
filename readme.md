@@ -312,3 +312,14 @@ const arr5 = [1,2,3,4,5].reduce((a,c) => {
 console.log(arr5); 
 // { '1': 10, '2': 20, '3': 30, '4': 40, '5': 50 }
 ```
+- every() : 배열에서 모든 요소가 조건에 해당하는지 판단
+```js
+const arr6 = [1,3,5,7];
+console.log(arr6.every((v) => v !== null )); // true
+console.log(arr6.every((v) => v === null )); // false
+```
+- some() : 배열에서 하나라도 조건에 해당하는지 판단
+```js
+const arr7 = [1, 3, null, 7];
+console.log(arr7.some((v) => v === null )); // true
+```
