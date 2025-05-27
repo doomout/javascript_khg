@@ -323,3 +323,92 @@ console.log(arr6.every((v) => v === null )); // false
 const arr7 = [1, 3, null, 7];
 console.log(arr7.some((v) => v === null )); // true
 ```
+### 10. JavaScript의 this 정리
+- 기본 개념
+this는 함수가 어떻게 호출되었는지에 따라 가리키는 대상이 달라진다.  
+정의된 위치가 아닌, "호출 방식"에 따라 동적으로 결정됨.  
+
+(1)  전역 함수에서의 this
+```js
+function show() {
+    console.log(this);
+}
+show(); // 브라우저에서는 window, Node.js에서는 global
+/*
+일반 함수 호출에서는 this는 전역 객체를 가리킨다.
+브라우저: window
+Node.js: global
+*/
+```
+(2) 객체의 메서드로 호출된 경우
+```js
+const obj = {
+    name: 'JS',
+    sayName() {
+        console.log(this.name);
+    }
+};
+obj.sayName(); // JS
+// this는 메서드를 호출한 객체를 가리킨다.
+```
+(3) bind(), call(), apply()를 사용한 경우
+```js
+function greet() {
+    console.log(this.name);
+}
+const user = { name: 'Alice' };
+
+greet.bind(user)();   // Alice
+greet.call(user);     // Alice
+greet.apply(user);    // Alice
+// 이들 메서드를 사용하면 this를 지정한 객체로 고정할 수 있다.
+```
+(4) 화살표 함수에서의 this
+```js
+const obj = {
+    name: 'Arrow',
+    say: () => {
+        console.log(this.name);
+    }
+};
+obj.say(); // undefined (화살표 함수는 상위 스코프의 this 사용)
+// 화살표 함수는 자신만의 this를 가지지 않는다.
+
+// 대신 **정의된 위치의 상위 스코프의 this**를 사용한다.
+const obj = {
+    name: 'Arrow',
+    say() {
+        const inner = () => {
+            console.log(this.name); // this는 obj를 가리킴
+        };
+        inner();
+    }
+};
+obj.say(); // Arrow
+```
+(5) 생성자 함수에서의 this
+```js
+function Person(name) {
+    this.name = name;
+}
+const p = new Person('John');
+console.log(p.name); // John
+// new 키워드를 사용하면 this는 새로 생성된 객체를 가리킨다.
+```
+(6) 클래스 내부의 this
+```js
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+    speak() {
+        console.log(this.name + ' sounds');
+    }
+}
+const dog = new Animal('Dog');
+dog.speak(); // Dog sounds
+// 클래스 내부의 메서드에서도 this는 해당 인스턴스를 가리킨다.
+```
+-  한 줄 요약  
+JavaScript의 this는 "어떻게 호출되었느냐"에 따라 바뀌며,   
+화살표 함수는 예외적으로 상위 스코프의 this를 사용한다.
