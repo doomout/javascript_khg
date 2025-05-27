@@ -412,3 +412,40 @@ dog.speak(); // Dog sounds
 -  한 줄 요약  
 JavaScript의 this는 "어떻게 호출되었느냐"에 따라 바뀌며,   
 화살표 함수는 예외적으로 상위 스코프의 this를 사용한다.
+### 11. HTML - DOM 사용하기
+(1) document.querySelector(선택자)
+- 첫 번째로 일치하는 요소 하나를 선택한다.
+- 선택자 문법은 CSS와 동일하다.
+```js
+// input 태그 선택
+const $input = document.querySelector('input');
+
+// id가 'order'인 요소 선택
+const $order = document.querySelector('#order');
+
+// div 안의 첫 번째 span 선택
+const $span = document.querySelector('div span');
+```
+(2) document.querySelectorAll(선택자)
+- 일치하는 모든 요소를 선택해서 NodeList로 반환한다.
+- 유사 배열이므로 forEach 반복 가능
+```js
+// 모든 button 태그 선택
+const $$button = document.querySelectorAll('button');
+
+// class가 'hello'인 모든 버튼 선택
+const $$buttons = document.querySelectorAll('.hello');
+```
+(3) 텍스트, 태그 가져오기
+```js
+<script>
+  // 태그.textContent : 태그 내부의 문자열을 가져옴
+  const $order = document.querySelector('#order');
+  console.log($order.textContent);
+  const $div = document.querySelector('div');
+  console.log($div.textContent);
+  // 태그.innerHTML : 태그 내부의 HTML 태그를 포함한 문자열 가져옴
+  const $div1 = document.querySelector('div');
+  console.log($div1.innerHTML);
+</script>
+```
