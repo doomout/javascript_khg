@@ -9,8 +9,8 @@
         <div>제시어: <span id="word"></span></div>
         <input type="text">
         <button>입력</button>
-        <button>입력2</button>
-        <button>입력3</button>
+        <button class="hello">버튼2</button>
+        <button class="hello">버튼3</button>
         <script>
             const $input = document.querySelector('input');
             console.log($input);
@@ -18,6 +18,8 @@
             console.log($$button);
             const $order = document.querySelector('#order');
             console.log($order);
+            const $$buttons = document.querySelectorAll('.hello');
+            console.log($$buttons);
         </script>
     </body>
 </html>
