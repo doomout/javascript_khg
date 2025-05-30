@@ -10,22 +10,44 @@
         <input type="text">
         <button>입력</button>
         <script>
+            // id가 'order'인 요소를 선택하여 변수에 저장
             const $order = document.querySelector('#order');
+            // 해당 요소의 텍스트 내용을 출력 (예: "1")
             console.log($order.textContent);
+
+            // 해당 요소의 텍스트 내용을 숫자 2로 변경 (자동으로 문자열로 변환됨)
             $order.textContent = 2;
+            // textContent는 문자열이므로 typeof는 'string'
             console.log(typeof $order.textContent);
+
+            // 첫 번째 <div> 요소를 선택
             const $div = document.querySelector('div');
+            // div 내부의 모든 텍스트를 출력 (태그 무시, 순수 텍스트만)
             console.log($div.textContent);
+
+            // 다시 첫 번째 <div> 요소 선택 (중복 선택, 같은 요소)
             const $div1 = document.querySelector('div');
+            // div 내부의 HTML 구조(태그 포함된 문자열)를 출력
             console.log($div1.innerHTML);
+
+            // div 내부 HTML을 빈 문자열로 설정 → 요소 내용이 모두 사라짐
             const $div2 = document.querySelector('div');
             $div.innerHTML = '';
+
+            // 첫 번째 <button> 요소를 선택
             const $button = document.querySelector('button');
+            // 버튼의 내용을 '<b>굵게</b>'로 변경 → 버튼 글자가 굵게 표시됨
             $button.innerHTML = '<b>굵게</b>';
+
+            // input 요소를 선택
             const $input = document.querySelector('input');
+            // input 요소의 현재 값(value)을 출력 (초기에는 빈 문자열)
             console.log($input.value);
-            $input.value = 123
-            $input.focus()
+
+            // input 요소의 값을 숫자 123으로 설정 (자동으로 문자열로 들어감)
+            $input.value = 123;
+            // input 요소에 포커스를 줌 (커서가 자동으로 이동함)
+            $input.focus();
         </script>
     </body>
 </html>
