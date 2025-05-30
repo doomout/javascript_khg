@@ -12,10 +12,16 @@
         <script>
             const $order = document.querySelector('#order');
             console.log($order.textContent);
+            $order.textContent = 2;
+            console.log(typeof $order.textContent);
             const $div = document.querySelector('div');
             console.log($div.textContent);
             const $div1 = document.querySelector('div');
             console.log($div1.innerHTML);
+            const $div2 = document.querySelector('div');
+            $div.innerHTML = '';
+            const $button = document.querySelector('button');
+            $button.innerHTML = '<b>굵게</b>';
         </script>
     </body>
 </html>
