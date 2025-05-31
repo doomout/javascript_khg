@@ -10,12 +10,21 @@
         <input type="text">
         <button>입력</button>
         <script>
+            // 이벤트 리스너 추가하기
+            // 형식: 태그.addEveintListener('이벤트 이름', 이벤트 리스트);
             // 이벤트는 addEventListener() 태그에 이벤트 리스터를 달아야 이벤트를 감지할 수 있다.
             const onClickButton = () => {
                 console.log('버튼 클릭');
             };
             const $button = document.querySelector('button');
             $button.addEventListener('click', onClickButton); //이벤트 연결할 때는 함수명만 넣어야 한다.
+            
+            // input 태그에 입력한 값 알아내기
+            const onInput = (event) => {
+                console.log('글자 입력', event.target.value);
+            };
+            const $input = document.querySelector('input');
+            $input.addEventListener('input', onInput);
         </script>
     </body>
 </html>
