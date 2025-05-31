@@ -25,6 +25,10 @@
             };
             const $input = document.querySelector('input');
             $input.addEventListener('input', onInput);
+
+            // 이벤트 리스너 제거하기
+            // 태그.removeEventListener('이벤트', 함수)
+            $button.removeEventListener('click', onClickButton);
         </script>
     </body>
 </html>
