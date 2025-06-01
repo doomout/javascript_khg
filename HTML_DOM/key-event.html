@@ -18,6 +18,7 @@
                 console.log('keydown', event);
             });
             // 마우스 이벤트
+            /*
             window.addEventListener('mousedown', (event) => {
                 console.log('mousedown', event);
             });
@@ -27,7 +28,7 @@
             window.addEventListener('mouseup', (event) => {
                 console.log('mouseup', event);
             });
-
+            */
             // 마우스 기준 좌표 알아내기
             let startCoord;
             window.addEventListener('mousedown', (event) => {
@@ -42,8 +43,11 @@
                 const diffY = endCoord[1] - startCoord[1];
 
                 // 마우스가 움직인 각도 저장(abs는 절대값)
-                const isUnder45 = Math.abs[diffX] > Math.abs[diffY];
+                // true : 좌우 이동이 상하보다 더 크다 -> 좌우 방향으로 판다
+                // false : 상하 이동이 좌우보다 더 크다 -> 상하 방향으로 판다
+                const isUnder45 = Math.abs(diffX) > Math.abs(diffY);
 
+                // diffX < 0: 마우스가 왼쪽으로 이동, isUnder45 === true: 좌우가 더 큰 방향 → 진짜 왼쪽으로 간 것
                 if(diffX < 0 && isUnder45) {
                 console.log('왼쪽');
                 } else if(diffX > 0 && isUnder45) {
@@ -54,6 +58,13 @@
                     console.log('위쪽');
                 }
             });
+            // 버튼 우측 클릭 막기
+            const $button1 = document.querySelector('button');
+            function onRightClick(event) {
+                event.preventDefault();
+                console.log('우클릭');
+            }
+            $button1.addEventListener('contextmenu', onRightClick);
         </script>
     </body>
 </html>
