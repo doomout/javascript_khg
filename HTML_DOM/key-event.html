@@ -17,6 +17,43 @@
             window.addEventListener('keydown', (event) => {
                 console.log('keydown', event);
             });
+            // 마우스 이벤트
+            window.addEventListener('mousedown', (event) => {
+                console.log('mousedown', event);
+            });
+            window.addEventListener('mousemove', (event) => {
+                console.log('mousemove', event);
+            });
+            window.addEventListener('mouseup', (event) => {
+                console.log('mouseup', event);
+            });
+
+            // 마우스 기준 좌표 알아내기
+            let startCoord;
+            window.addEventListener('mousedown', (event) => {
+                // moustdown 이벤트 발생시 시작 좌표를 x,y 형태로 저장 
+                startCoord = [event.clientX, event.clientY];
+            });
+            window.addEventListener('mouseup', (event) => {
+                // moustup 이벤트가 발생시 끝점 좌표를 endCoord 변수에 x,y 형태로 저장
+                const endCoord = [event.clientX, event.clientY];
+                // startCoord와 endCoord로 좌표 차이를 구함
+                const diffX = endCoord[0] - startCoord[0];
+                const diffY = endCoord[1] - startCoord[1];
+
+                // 마우스가 움직인 각도 저장(abs는 절대값)
+                const isUnder45 = Math.abs[diffX] > Math.abs[diffY];
+
+                if(diffX < 0 && isUnder45) {
+                console.log('왼쪽');
+                } else if(diffX > 0 && isUnder45) {
+                    console.log('오른쪽');
+                } else if(diffY > 0 && !isUnder45) {
+                    console.log('아래쪽');
+                } else if(diffY < 0 && !isUnder45) {
+                    console.log('위쪽');
+                }
+            });
         </script>
     </body>
 </html>
