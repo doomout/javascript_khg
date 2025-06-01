@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <mata charset="utf-8"></mata>
+        <title>키보드, 마우스 이벤트</title>
+    </head>
+    <body>
+        <div><span id="order">1</span>번째 참가자</div>
+        <div>제시어: <span id="word"></span></div>
+        <input type="text">
+        <button>입력</button>
+        <script>
+            // 키보드 이벤트
+            window.addEventListener('keyup', (event) => {
+                console.log('keyup', event);
+            });
+            window.addEventListener('keydown', (event) => {
+                console.log('keydown', event);
+            });
+        </script>
+    </body>
+</html>
