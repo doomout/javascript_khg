@@ -23,8 +23,16 @@ setTimeout(() => {
 }, 1000);
 console.log('내가 먼저');
 
+// clearTimeout() : setTimeout() 함수를 끄는 방법
+const timerId = setTimeout(() => {
+    console.log('5초 뒤에 실행된다.');
+}, 0);
+console.log('이건 나오는데 5초 뒤는 안나온다. 그전이 이미 종료했어');
+clearTimeout(timerId);
+
 /* 실행결과
 내가 먼저
+이건 나오는데 5초 뒤는 안나온다. 그전이 이미 종료했어
 1초 뒤에 실행된다.
 2초 뒤에 실행된다.
 3초 뒤에 실행된다.
