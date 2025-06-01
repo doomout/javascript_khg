@@ -449,3 +449,55 @@ const $$buttons = document.querySelectorAll('.hello');
   console.log($div1.innerHTML);
 </script>
 ```
+
+### 12. 자바스크립트 이벤트 등록 방식 정리
+
+자바스크립트에서는 HTML 요소에 이벤트를 등록하는 방식이 여러 가지가 존재한다. 
+각 방식의 특징과 차이점을 아래에 정리한다.
+
+---
+
+1. HTML 인라인 이벤트 방식
+
+```html
+<button onclick="alert('클릭됨')">버튼</button>
+```
+- HTML 태그에 직접 자바스크립트 코드를 작성
+- 빠르고 직관적이지만, HTML과 JS가 섞여 유지보수에 불리
+- 비추천하는 방식
+
+2. DOM 속성 방식 (element.onclick)
+```html
+const button = document.querySelector('button');
+button.onclick = () => {
+    console.log('버튼 클릭됨');
+};
+```
+- JS에서 직접 이벤트 핸들러 등록
+- 직관적이고 간단하지만,
+- 이전에 등록된 핸들러를 덮어쓴다 (오직 하나만 유지됨)
+
+3. addEventListener 방식 (권장)
+```html
+const button = document.querySelector('button');
+button.addEventListener('click', () => {
+    console.log('버튼 클릭됨');
+});
+```
+- 하나의 요소에 여러 개의 이벤트 핸들러 등록 가능
+- 핸들러 제거(removeEventListener) 가능
+- 이벤트 위임(delegate) 에도 사용 가능
+- 모듈화, 유지보수, 확장성 모두 뛰어나 가장 추천되는 방식
+
+4. 추가 정보
+- click, keydown, input, submit, ... :	이벤트 이름은 모두 표준 DOM 이벤트 이름
+- onclick, oninput, onchange, ...	: 속성 방식에서는 접두사로 on을 붙임
+- addEventListener('click', handler)	: 이벤트 이름에서 on은 제거하고 순수 이벤트명 사용
+
+5. 결론
+| 방식                 | 등록 가능 개수 | 코드 분리 | 유연성 | 추천 여부 |
+| ------------------ | -------- | ----- | --- | ----- |
+| 인라인                | 1개       | ❌     | ❌   | ❌     |
+| 속성                 | 1개       | 🔵    | 🔵  | ❌     |
+| `addEventListener` | 여러 개     | ✅     | ✅   | ✅✅✅   |
+
