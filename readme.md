@@ -516,8 +516,6 @@ button.addEventListener('click', () => {
 | 특징 | 함수가 반환되거나 전달되더라도 외부 변수 참조 가능 |
 | 메모리 유지 | 함수가 해당 변수를 **참조하고 있는 한**, 메모리에서 유지됨 (GC 대상 아님)
 
-### 📌 예시 (JavaScript)
-
 ```js
 function makeCounter() {
   let count = 0;
@@ -530,4 +528,62 @@ function makeCounter() {
 const counter = makeCounter();
 counter(); // 1
 counter(); // 2
+```
+### 14. Promise란?
+- 비동기 작업을 보다 쉽게 처리하기 위한 자바스크립트의 내장 객체
+- 성공(resolve) 또는 실패(reject)를 나중에 알려주는 약속(promise) 같은 역할
+```js
+const promise = new Promise((resolve, reject) => {
+    // 비동기 작업
+    if (성공조건) {
+        resolve(결과값);
+    } else {
+        reject(에러값);
+    }
+});
+```
+- 사용 예시 (then / catch)
+```js
+const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("성공!");
+    }, 1000);
+});
 
+p.then((result) => {
+    console.log(result); // "성공!"
+}).catch((error) => {
+    console.error(error); // 에러 발생 시 출력
+});
+```
+- Promise 체이닝
+```js
+doSomething()
+    .then(result => doSomethingElse(result))
+    .then(finalResult => console.log(finalResult))
+    .catch(err => console.error(err));
+```
+- 유용한 Promise 함수들
+```js
+// Promise.resolve()
+Promise.resolve("ok").then(console.log); // "ok"
+
+// Promise.reject()
+Promise.reject("error").catch(console.error); // "error"
+
+// Promise.all()
+Promise.all([p1, p2, p3])
+    .then(results => console.log(results))
+    .catch(err => console.error(err));
+
+// Promise.race()
+Promise.race([p1, p2, p3])
+    .then(result => console.log(result));
+
+// 예제: setTimeout을 Promise로 변환
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+delay(2000).then(() => {
+    console.log("2초 뒤에 실행됨");
+});
+```
