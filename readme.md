@@ -585,9 +585,25 @@ delay(2000).then(() => {
     console.log("2초 뒤에 실행됨");
 });
 ```
-### 15. 이벤트 버블링
-| 개념                    | 설명                    |
-| --------------------- | --------------------- |
-| `event.target`        | 실제로 클릭된 요소            |
-| `event.currentTarget` | 현재 이벤트 핸들러가 걸려 있는 요소  |
-| 이벤트 버블링               | 이벤트가 자식 → 부모로 전파되는 현상 |
+### 15. 이벤트 전파: 버블링(Bubbling) vs 캡처링(Capturing)
+(1) 캡처링 (Capturing)
+- 이벤트가 최상위 요소(document) 에서 시작해서, 이벤트 대상 요소까지 내려오면서 이벤트 리스너를 실행합니다.
+- addEventListener(event, handler, **true**) 로 설정하면 이 단계에서 실행됩니다
+```js
+element.addEventListener('click', handler, true);
+// <html> → <body> → <div> → <button>
+```
+
+(2)  버블링 (Bubbling)
+- 이벤트가 이벤트 대상 요소에서 시작해서, 최상위 요소까지 올라가며 이벤트 리스너를 실행합니다.
+- 기본값이며 addEventListener(event, handler) 또는 false로 설정하면 이 단계에서 실행됩니다.
+```js
+element.addEventListener('click', handler); // or false
+// <button> → <div> → <body> → <html>
+```
+
+(3) event.target vs event.currentTarget
+| 속성                    | 설명                     |
+| --------------------- | ---------------------- |
+| `event.target`        | 실제 **클릭된 요소**          |
+| `event.currentTarget` | 현재 **이벤트 리스너가 등록된 요소** |
