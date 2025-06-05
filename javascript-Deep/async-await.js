@@ -40,3 +40,20 @@ main2();
 3초 뒤에 실행된다.
 이건 더 나중에 나온다
 */
+
+// await 에는 에러 처리 메서드가 없어서  try/catch 문으로 감싸줘야 한다.
+const p1 = new Promise((resolve, reject) => {
+    reject('에러 발생');
+});
+try {
+    await p1;
+} catch(err) {
+    console.log('에러인 경우');
+} finally {
+    console.log('성공이든 에러든 마지막에 실행');
+}
+
+/*실행결과
+에러인 경우
+성공이든 에러든 마지막에 실행
+*/
