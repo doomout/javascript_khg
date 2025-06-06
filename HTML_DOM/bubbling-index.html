@@ -1,0 +1,18 @@
+<!--태그 속성 다루기 예제-->
+<html>
+    <body>
+        <table border="1">
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+        </table>
+        <script>
+            // 몇 번째 줄인지 알려주는 rowIndex
+            console.log(document.querySelector('tr').rowIndex); // 0
+            // 몇 번째 컬럼인지 알려주는 cellIndex
+            console.log(document.querySelectorAll('td')[2].cellIndex); // 2
+        </script>
+    </body>
+</html>
