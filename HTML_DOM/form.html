@@ -1,0 +1,24 @@
+<!--form 태그에서 자식 태그로 접근하기-->
+<html>
+    <body>
+        <table border="1">
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+        </table>
+        <form action="" method="get" id="form">
+            <input type="text" name="name" id="name" required/>
+            <input type="email" name="email" id="email" required/>
+            <button name="button" type="submit">구독</button>
+        </form>
+        <script>
+            const $form = document.querySelector('#form');
+            $form.name;
+            $form.email;
+            $form.button;
+        </script>
+    </body>
+</html>
+
