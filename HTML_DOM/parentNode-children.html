@@ -1,0 +1,22 @@
+<!--부모와 자식태그 찾기 예제-->
+<html>
+    <body>
+        <table border="1">
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+        </table>
+        <script>
+            // 현재 태그의 부모 태그를 찾고 싶을 때
+            console.log(document.querySelector('td').parentNode); // tr           
+            // 현재 태그의 자식 태그를 찾고 싶을 때
+            console.log(document.querySelector('tr').children); // [td, td, td]
+            // table에서 td 를 찾고 싶으면 children 을 두번 쓰면 된다.
+            console.log(document.querySelector('table').children.children); // [td, td, td]
+            // td 태그는 여러 개이니 querySelectorAll()을 써도 된다.
+            console.log(document.querySelector('table').querySelectorAll('td')); //[td, td, td]
+        </script>
+    </body>
+</html>
