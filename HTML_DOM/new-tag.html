@@ -1,0 +1,36 @@
+<!--자바스크립트로 태그 만들기-->
+<html>
+    <body>
+        <script>
+            // 버튼 생성
+            const $button = document.createElement('button');
+            $button.classList.add('login');
+            $button.style.fontSize = '15px';
+            $button.textContent = '버튼';
+            document.body.append($button);
+
+            // 4행 4열 테이블 생성
+            const $table = document.createElement('table');
+            $table.border = 1;
+            for (let i = 0; i < 4; i++) {
+                const $tr = document.createElement('tr');
+                $table.append($tr);
+                for (let j = 0; j < 4; j++) {
+                    const $td = document.createElement('td');
+                    $td.textContent = '칸';
+                    $tr.append($td);
+                }
+            }
+
+            // 성능을 위해 가장 나중에 추가한다.
+            document.body.append($table);
+
+            // 부모 태그가 없는 경우
+            const $img = document.createElement('img');
+            const $fragment = document.createDocumentFragment();
+            $fragment.append('텍스트', $img);
+            document.body.append($fragment); // 텍스트, img 가 추가됨
+        </script>
+    </body>
+</html>
+
