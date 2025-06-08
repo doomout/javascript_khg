@@ -12,6 +12,30 @@
         <button>입력</button>
         <script>
             const number = Number(prompt('참가자는 몇 명인가요?'));
+            // input 태그 선택
+            const $input = document.querySelector('input');
+            // button 태그 선택
+            const $button = document.querySelector('button');
+            // 제시어가 되었음을 표시
+            const $word = document.querySelector('#word');
+            // 현재 단어
+            let newWord;
+            // 제시어
+            let word;
+            const onInput = (event) => {
+                newWord = event.target.value;// 입력한 단어를 현재 단어로 저장
+            }
+            const onClickButton = () => {
+                // word 가 비어 있으면 undefined 이므로 if문에서 false 로 취급하니 !word는 true가 됨
+                if (!word) { // 제시어가 비어 있는가?
+                    word = newWord; //입력한 단어가 제시어가 된다.
+                    $word.textContent = word; //화면에 제시어 표시
+                } else {
+                    // 제시어가 있음
+                }
+            };
+            $input.addEventListener('input', onInput); //input 이벤트 연결
+            $button.addEventListener('click', onClickButton); // click 이벤트 연결
         </script>
     </body>
 </html>
