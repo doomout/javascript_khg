@@ -39,6 +39,8 @@
                     } else {
                         $order.textContent = order + 1; 
                     }
+                    $input.value=''; // 입력창을 비움
+                    $input.focus(); // 커서를 위치시킴
                 } else {
                     // 제시어가 있음
                     if(word.at(-1)===newWord.at(0)) { // 제시어 끝단어와 현재 단어 첫단어와 비교
@@ -51,9 +53,13 @@
                         } else {
                             $order.textContent = order + 1;
                         }
+                        $input.value=''; // 입력창을 비움
+                        $input.focus(); // 커서를 위치시킴
                     } else {
                         // 틀린 단어
                         alert('틀렸어! 루저야~!');
+                        $input.value=''; // 입력창을 비움
+                        $input.focus(); // 커서를 위치시킴
                     }
                 }
             };
