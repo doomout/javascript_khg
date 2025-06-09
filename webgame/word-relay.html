@@ -18,6 +18,8 @@
             const $button = document.querySelector('button');
             // 제시어가 되었음을 표시
             const $word = document.querySelector('#word');
+            // 순서를 저장
+            const $order = document.querySelector('#order');
             // 현재 단어
             let newWord;
             // 제시어
@@ -30,8 +32,28 @@
                 if (!word) { // 제시어가 비어 있는가?
                     word = newWord; //입력한 단어가 제시어가 된다.
                     $word.textContent = word; //화면에 제시어 표시
+                    const order = Number($order.textContent); //현재 순서를 파악한다.
+                    // 현재 순서에 1을 더한 값이 number 보다 큰가?
+                    if(order + 1 > number) {
+                        $order.textContent = 1;
+                    } else {
+                        $order.textContent = order + 1; 
+                    }
                 } else {
                     // 제시어가 있음
+                    if(word.at(-1)===newWord.at(0)) { // 제시어 끝단어와 현재 단어 첫단어와 비교
+                        // 맞는 단어
+                        word = newWord;
+                        $word.textContent = word;
+                        const order = Number($order.textContent);
+                        if(order + 1 > number) {
+                            $order.textContent = 1;
+                        } else {
+                            $order.textContent = order + 1;
+                        }
+                    } else {
+                        // 틀린 단어
+                    }
                 }
             };
             $input.addEventListener('input', onInput); //input 이벤트 연결
