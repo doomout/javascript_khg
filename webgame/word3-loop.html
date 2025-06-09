@@ -3,7 +3,8 @@
 2. 제시어는 컴퓨터가 랜덤으로 제시
 3. 끝말잇기지만 3글자만 가능
 4. 사용된 단어는 화면에 이어서 표시
-5. 중복이나 틀리면 게임 종료
+5. 중복이나 틀리거나 시간초과 3회시 게임 종료
+6. 게임 종료 후에는 결과 표시
 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -26,13 +27,19 @@
       color: green;
       margin-top: 10px;
     }
+    #result {
+      font-size: 20px;
+      font-weight: bold;
+      color: red;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
 
   <h1>쿵쿵따 게임</h1>
 
-  <!-- 1. 인원수 입력 -->
+  <!-- 참가자 수 입력 -->
   <div>
     <label for="players">몇 명이 참가하나요?</label>
     <input type="number" id="players" min="2" value="2">
@@ -45,11 +52,10 @@
     <div>제시어: <span id="currentWord"></span></div>
     <input type="text" id="userInput" placeholder="3글자 단어를 입력하세요">
     <button id="submitBtn">입력</button>
-
-    <!-- 게임 진행 내용 출력 -->
     <div id="history">진행: </div>
     <div id="message" style="color: red;"></div>
-    <div id="timer">남은 시간: 5초</div>
+    <div id="timer">남은 시간: 10초</div>
+    <div id="result"></div>
   </div>
 
   <script>
@@ -58,8 +64,10 @@
     let currentWord = '';
     let currentPlayer = 1;
     let totalPlayers = 2;
-    let countdown = 5;
+    let countdown = 10;
     let timerId;
+    let timeoutCount = {};
+    let gameEnded = false;
 
     const $startBtn = document.getElementById('startBtn');
     const $players = document.getElementById('players');
@@ -71,29 +79,54 @@
     const $history = document.getElementById('history');
     const $orderInfo = document.getElementById('orderInfo');
     const $timer = document.getElementById('timer');
+    const $result = document.getElementById('result');
 
     function startTimer() {
-      countdown = 5;
+      countdown = 10;
       $timer.textContent = `남은 시간: ${countdown}초`;
+      clearInterval(timerId);
 
-      clearInterval(timerId); // 이전 타이머 제거
       timerId = setInterval(() => {
         countdown--;
         $timer.textContent = `남은 시간: ${countdown}초`;
         if (countdown === 0) {
           clearInterval(timerId);
-          $message.textContent = '❗ 시간 초과! 턴을 넘깁니다.';
-          nextTurn(); // 다음 사람에게 넘김
+          handleTimeout();
         }
       }, 1000);
     }
 
+    function handleTimeout() {
+      const key = `player${currentPlayer}`;
+      timeoutCount[key] = (timeoutCount[key] || 0) + 1;
+
+      if (timeoutCount[key] >= 3) {
+        endGame(`${currentPlayer}번 참가자, 시간 초과 3번으로 탈락!`);
+        return;
+      }
+
+      $message.textContent = `❗ ${currentPlayer}번 참가자, 시간 초과! (${timeoutCount[key]}회)`;
+      nextTurn();
+    }
+
     function nextTurn() {
+      if (gameEnded) return;
+
       currentPlayer = (currentPlayer % totalPlayers) + 1;
       $orderInfo.textContent = `현재 ${currentPlayer}번째 참가자 차례`;
       $userInput.value = '';
       $userInput.focus();
-      startTimer(); // 다음 턴의 타이머 시작
+      startTimer();
+    }
+
+    function endGame(reason) {
+      clearInterval(timerId);
+      gameEnded = true;
+      $message.textContent = '';
+      $result.textContent = `게임 종료: ${reason}`;
+      $userInput.disabled = true;
+      $submitBtn.disabled = true;
+      $timer.textContent = '';
     }
 
     $startBtn.addEventListener('click', () => {
@@ -103,33 +136,45 @@
         return;
       }
 
+      for (let i = 1; i <= totalPlayers; i++) {
+        timeoutCount[`player${i}`] = 0;
+      }
+
       currentWord = words[Math.floor(Math.random() * words.length)];
       usedWords = [currentWord];
+      gameEnded = false;
+      currentPlayer = 1;
 
       $currentWord.textContent = currentWord;
       $history.textContent = `진행: ${currentWord}`;
       $game.style.display = 'block';
       $orderInfo.textContent = `현재 ${currentPlayer}번째 참가자 차례`;
+      $userInput.disabled = false;
+      $submitBtn.disabled = false;
+      $result.textContent = '';
+      $message.textContent = '';
 
-      startTimer(); // 첫 번째 턴 타이머 시작
+      startTimer();
     });
 
     $submitBtn.addEventListener('click', () => {
+      if (gameEnded) return;
+
       const input = $userInput.value.trim();
       $message.textContent = '';
 
       if (input.length !== 3) {
-        $message.textContent = '❗ 반드시 3글자 단어만 입력하세요.';
+        endGame(`${currentPlayer}번 참가자, 단어 길이가 3글자가 아님!`);
         return;
       }
 
       if (usedWords.includes(input)) {
-        $message.textContent = '❗ 이미 사용된 단어입니다.';
+        endGame(`${currentPlayer}번 참가자, 이미 사용된 단어 입력!`);
         return;
       }
 
       if (input[0] !== currentWord[currentWord.length - 1]) {
-        $message.textContent = '❗ 마지막 글자와 맞지 않습니다.';
+        endGame(`${currentPlayer}번 참가자, 제시어와 이어지지 않음!`);
         return;
       }
 
@@ -140,10 +185,9 @@
 
       $currentWord.textContent = currentWord;
       $history.textContent += ` > ${input}`;
-      nextTurn(); // 다음 턴으로 이동
+      nextTurn();
     });
   </script>
 
 </body>
 </html>
-
