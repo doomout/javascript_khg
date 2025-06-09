@@ -1,0 +1,118 @@
+<!--쿵쿵따 게임
+1. 참가자 설정 (최소 2명 이상)
+2. 제시어는 컴퓨터가 랜덤으로 제시
+3. 끝말잇기지만 3글자만 가능
+4. 사용된 단어는 화면에 이어서 표시
+5. 중복이나 틀리면 게임 종료
+-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>쿵쿵따 게임</title>
+  <style>
+    body {
+      font-family: 'Arial';
+      text-align: center;
+      margin-top: 50px;
+    }
+    #history {
+      margin: 20px 0;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>쿵쿵따 게임</h1>
+
+  <!-- 1. 인원수 입력 -->
+  <div>
+    <label for="players">몇 명이 참가하나요?</label>
+    <input type="number" id="players" min="2" value="2">
+    <button id="startBtn">게임 시작</button>
+  </div>
+
+  <!-- 게임 화면 -->
+  <div id="game" style="display: none;">
+    <div id="orderInfo"></div>
+    <div>제시어: <span id="currentWord"></span></div>
+    <input type="text" id="userInput" placeholder="3글자 단어를 입력하세요">
+    <button id="submitBtn">입력</button>
+
+    <!-- 3. 게임 진행 내용 출력 -->
+    <div id="history">진행: </div>
+    <div id="message" style="color: red;"></div>
+  </div>
+
+  <script>
+    const words = ['지렁이', '고양이', '코끼리', '바나나', '고라니'];
+    let usedWords = [];  // 입력한 단어 저장
+    let currentWord = '';
+    let currentPlayer = 1;
+    let totalPlayers = 2;
+
+    const $startBtn = document.getElementById('startBtn');
+    const $players = document.getElementById('players');
+    const $game = document.getElementById('game');
+    const $currentWord = document.getElementById('currentWord');
+    const $userInput = document.getElementById('userInput');
+    const $submitBtn = document.getElementById('submitBtn');
+    const $message = document.getElementById('message');
+    const $history = document.getElementById('history');
+    const $orderInfo = document.getElementById('orderInfo');
+
+    // 1. 게임 시작 버튼 클릭 시
+    $startBtn.addEventListener('click', () => {
+      totalPlayers = parseInt($players.value);
+      if (totalPlayers < 2) {
+        alert('최소 2명 이상이 참가해야 합니다!');
+        return;
+      }
+
+      // 2. 랜덤 제시어
+      currentWord = words[Math.floor(Math.random() * words.length)];
+      usedWords = [currentWord];
+
+      $currentWord.textContent = currentWord;
+      $history.textContent = `진행: ${currentWord}`;
+      $game.style.display = 'block';
+      $orderInfo.textContent = `현재 ${currentPlayer}번째 참가자 차례`;
+    });
+
+    // 3. 단어 입력
+    $submitBtn.addEventListener('click', () => {
+      const input = $userInput.value.trim();
+      $message.textContent = '';
+
+      if (input.length !== 3) {
+        $message.textContent = '❗ 반드시 3글자 단어만 입력하세요.';
+        return;
+      }
+
+      if (usedWords.includes(input)) {
+        $message.textContent = '❗ 이미 사용된 단어입니다.';
+        return;
+      }
+
+      if (input[0] !== currentWord[currentWord.length - 1]) {
+        $message.textContent = '❗ 마지막 글자와 맞지 않습니다.';
+        return;
+      }
+
+      // 정답 인정
+      usedWords.push(input);
+      currentWord = input;
+      currentPlayer = (currentPlayer % totalPlayers) + 1;
+
+      $currentWord.textContent = currentWord;
+      $history.textContent += ` > ${input}`;
+      $orderInfo.textContent = `현재 ${currentPlayer}번째 참가자 차례`;
+      $userInput.value = '';
+      $userInput.focus();
+    });
+  </script>
+
+</body>
+</html>
