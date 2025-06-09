@@ -21,6 +21,11 @@
       font-size: 20px;
       font-weight: bold;
     }
+    #timer {
+      font-size: 18px;
+      color: green;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -41,17 +46,20 @@
     <input type="text" id="userInput" placeholder="3글자 단어를 입력하세요">
     <button id="submitBtn">입력</button>
 
-    <!-- 3. 게임 진행 내용 출력 -->
+    <!-- 게임 진행 내용 출력 -->
     <div id="history">진행: </div>
     <div id="message" style="color: red;"></div>
+    <div id="timer">남은 시간: 5초</div>
   </div>
 
   <script>
     const words = ['지렁이', '고양이', '코끼리', '바나나', '고라니'];
-    let usedWords = [];  // 입력한 단어 저장
+    let usedWords = [];
     let currentWord = '';
     let currentPlayer = 1;
     let totalPlayers = 2;
+    let countdown = 5;
+    let timerId;
 
     const $startBtn = document.getElementById('startBtn');
     const $players = document.getElementById('players');
@@ -62,8 +70,32 @@
     const $message = document.getElementById('message');
     const $history = document.getElementById('history');
     const $orderInfo = document.getElementById('orderInfo');
+    const $timer = document.getElementById('timer');
 
-    // 1. 게임 시작 버튼 클릭 시
+    function startTimer() {
+      countdown = 5;
+      $timer.textContent = `남은 시간: ${countdown}초`;
+
+      clearInterval(timerId); // 이전 타이머 제거
+      timerId = setInterval(() => {
+        countdown--;
+        $timer.textContent = `남은 시간: ${countdown}초`;
+        if (countdown === 0) {
+          clearInterval(timerId);
+          $message.textContent = '❗ 시간 초과! 턴을 넘깁니다.';
+          nextTurn(); // 다음 사람에게 넘김
+        }
+      }, 1000);
+    }
+
+    function nextTurn() {
+      currentPlayer = (currentPlayer % totalPlayers) + 1;
+      $orderInfo.textContent = `현재 ${currentPlayer}번째 참가자 차례`;
+      $userInput.value = '';
+      $userInput.focus();
+      startTimer(); // 다음 턴의 타이머 시작
+    }
+
     $startBtn.addEventListener('click', () => {
       totalPlayers = parseInt($players.value);
       if (totalPlayers < 2) {
@@ -71,7 +103,6 @@
         return;
       }
 
-      // 2. 랜덤 제시어
       currentWord = words[Math.floor(Math.random() * words.length)];
       usedWords = [currentWord];
 
@@ -79,9 +110,10 @@
       $history.textContent = `진행: ${currentWord}`;
       $game.style.display = 'block';
       $orderInfo.textContent = `현재 ${currentPlayer}번째 참가자 차례`;
+
+      startTimer(); // 첫 번째 턴 타이머 시작
     });
 
-    // 3. 단어 입력
     $submitBtn.addEventListener('click', () => {
       const input = $userInput.value.trim();
       $message.textContent = '';
@@ -102,17 +134,16 @@
       }
 
       // 정답 인정
+      clearInterval(timerId);
       usedWords.push(input);
       currentWord = input;
-      currentPlayer = (currentPlayer % totalPlayers) + 1;
 
       $currentWord.textContent = currentWord;
       $history.textContent += ` > ${input}`;
-      $orderInfo.textContent = `현재 ${currentPlayer}번째 참가자 차례`;
-      $userInput.value = '';
-      $userInput.focus();
+      nextTurn(); // 다음 턴으로 이동
     });
   </script>
 
 </body>
 </html>
+
