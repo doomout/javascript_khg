@@ -28,8 +28,8 @@
                 newWord = event.target.value;// 입력한 단어를 현재 단어로 저장
             }
             const onClickButton = () => {
-                // word 가 비어 있으면 undefined 이므로 if문에서 false 로 취급하니 !word는 true가 됨
-                if (!word) { // 제시어가 비어 있는가?
+                //제시어가 비어 있거나 입력한 단어가 맞는 단어인가?
+                if (!word || word.at(-1) === newWord.at(0)) { 
                     word = newWord; //입력한 단어가 제시어가 된다.
                     $word.textContent = word; //화면에 제시어 표시
                     const order = Number($order.textContent); //현재 순서를 파악한다.
@@ -39,29 +39,11 @@
                     } else {
                         $order.textContent = order + 1; 
                     }
-                    $input.value=''; // 입력창을 비움
-                    $input.focus(); // 커서를 위치시킴
                 } else {
-                    // 제시어가 있음
-                    if(word.at(-1)===newWord.at(0)) { // 제시어 끝단어와 현재 단어 첫단어와 비교
-                        // 맞는 단어
-                        word = newWord;
-                        $word.textContent = word;
-                        const order = Number($order.textContent);
-                        if(order + 1 > number) {
-                            $order.textContent = 1;
-                        } else {
-                            $order.textContent = order + 1;
-                        }
-                        $input.value=''; // 입력창을 비움
-                        $input.focus(); // 커서를 위치시킴
-                    } else {
-                        // 틀린 단어
-                        alert('틀렸어! 루저야~!');
-                        $input.value=''; // 입력창을 비움
-                        $input.focus(); // 커서를 위치시킴
-                    }
+                    alert('틀렸어! 루저야~!');
                 }
+                $input.value = '';
+                $input.focus();
             };
             $input.addEventListener('input', onInput); //input 이벤트 연결
             $button.addEventListener('click', onClickButton); // click 이벤트 연결
