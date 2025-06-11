@@ -82,6 +82,43 @@
       <button id="multiply">*</button>
     </div>
   </div>
+  <script>
+    let numOne = '';
+    let numTwo = '';
+    let operator = '';
+    const $operator = document.getElementById('operator');
+    const $result = document.getElementById('result');
+    document.querySelector('#num-0').addEventListener('click', () => {
+      if(operator) {
+        numTwo += '0';
+      } else {
+        numOne += '0';
+      }
+      $result.value += '0';
+    });
+    document.querySelector('#num-1').addEventListener('click', () => {
+       if(operator) {
+        numTwo += '1';
+      } else {
+        numOne += '1';
+      }
+      $result.value += '1';
+    });
+    document.querySelector('#num-2').addEventListener('click', () => {});
+    document.querySelector('#num-3').addEventListener('click', () => {});
+    document.querySelector('#num-4').addEventListener('click', () => {});
+    document.querySelector('#num-5').addEventListener('click', () => {});
+    document.querySelector('#num-6').addEventListener('click', () => {});
+    document.querySelector('#num-7').addEventListener('click', () => {});
+    document.querySelector('#num-8').addEventListener('click', () => {});
+    document.querySelector('#num-9').addEventListener('click', () => {});
+    document.querySelector('#num-0').addEventListener('click', () => {});
+    document.querySelector('#plus').addEventListener('click', () => {});
+    document.querySelector('#minus').addEventListener('click', () => {});
+    document.querySelector('#divide').addEventListener('click', () => {});
+    document.querySelector('#multiply').addEventListener('click', () => {});
+    document.querySelector('#calculate').addEventListener('click', () => {});
+    document.querySelector('#clear').addEventListener('click', () => {});
+  </script>
 </body>
-
 </html>
