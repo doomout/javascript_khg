@@ -132,7 +132,29 @@
     document.querySelector('#divide').addEventListener('click', onClickOperator('/'));
     document.querySelector('#multiply').addEventListener('click', onClickOperator('*'));
 
-    document.querySelector('#calculate').addEventListener('click', () => {});
+    // 결과 계산 하기
+    document.querySelector('#calculate').addEventListener('click', () => {
+      if (numTwo) {
+        switch (operator) {
+          case '+': // + 는 문자열 결합도 되기에 변환해서 계산 한다.
+            $result.value = parseInt(numOne) + parseInt(numTwo);
+            break;
+          case '-':
+            $result.value = numOne - numTwo;
+            break;            
+          case '*':
+            $result.value = numOne * numTwo;
+            break;
+          case '/':
+            $result.value = numOne / numTwo;
+            break;
+          default:
+            break;
+        } 
+      } else {
+        alert('숫자를 먼제 입력하세요.');
+      }
+    });
     document.querySelector('#clear').addEventListener('click', () => {});
   </script>
 </body>
