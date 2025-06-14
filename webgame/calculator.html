@@ -95,7 +95,7 @@
       if(!operator) {
         numOne += event.target.textContent;
         $result.value += event.target.textContent;
-        retrun;
+        return;
       } 
       // 이하 코드는 operator에 값이 있을 때 실행
       if(!numTwo) {
@@ -152,10 +152,17 @@
             break;
         } 
       } else {
-        alert('숫자를 먼제 입력하세요.');
+        alert('숫자를 먼저 입력하세요.');
       }
     });
-    document.querySelector('#clear').addEventListener('click', () => {});
+    // 초기화 부분
+    document.querySelector('#clear').addEventListener('click', () => {
+      numOne = '';
+      numTwo = '';
+      operator = '';
+      $operator.value = '';
+      $result.value = '';
+    });
   </script>
 </body>
 </html>
