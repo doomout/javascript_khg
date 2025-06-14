@@ -92,16 +92,17 @@
     // 중복 제거
     // 태그에서 숫자 정보 가져오도록 수정
     const onClickNumber = (event) => {
-      if(operator) {
-        if(!numTwo) {
-          $result.value = ''; // 두 번째 숫자 입력 전에 화면 비우기
-        }
-        numTwo += event.target.textContent;
-      } else {
+      if(!operator) {
         numOne += event.target.textContent;
+        $result.value += event.target.textContent;
+        retrun;
+      } 
+      // 이하 코드는 operator에 값이 있을 때 실행
+      if(!numTwo) {
+        $result.value = ''; // 두 번째 숫자 입력 전에 화면 비우기
       }
+      numTwo += event.target.textContent;
       $result.value += event.target.textContent;
-
     };
     // 함수를 사용하여 코드 간소화
     document.querySelector('#num-0').addEventListener('click', onClickNumber);
