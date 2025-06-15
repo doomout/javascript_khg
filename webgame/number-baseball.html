@@ -1,0 +1,28 @@
+<!--숫자 야구 게임-->
+<!--룰
+1. 무작위로 숫자 4개 뽑기
+2. 사용자가 숫자 4개 입력하기
+3. 4개 중 숫자가 맞으면 1개당 볼 1개, 화면 표시
+4. 4개 중 숫자와 순서까지 맞으면 1개당 스트라이크 1개, 화면표시
+5. 4개의 숫자와 순서까지 맞으면 홈런으로 사용자 승리
+6. 10번의 기회를 주고 못 맞추면 컴퓨터 승리, 정답 출력
+7. 홈런도 패배도 아니면: 몇 스트라이크, 몇 볼 출력
+-->
+<html>
+<head>
+    <mata charset="utf-8">
+    <title>숫자 야구 게임</title>
+</head>
+<body>
+    <form id="form">
+        <input type="text" id="input">
+        <button>확인</button>
+    </form>
+    <div id="logs"></div>
+    <script>
+        const $input = document.querySelector('input');
+        const $form = document.querySelector('form');
+        const $logs = document.querySelector('logs');
+    </script>
+</body>
+</html>
