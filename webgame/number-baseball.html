@@ -20,19 +20,20 @@
     </form>
     <div id="logs"></div>
     <script>
-        const $input = document.querySelector('input');
-        const $form = document.querySelector('form');
-        const $logs = document.querySelector('logs');
+        const $input = document.querySelector('#input');
+        const $form = document.querySelector('#form');
+        const $logs = document.querySelector('#logs');
         // 1~9까지 빈 배열에 넣기
         const numbers = [];
         for(let n = 1; n <= 9; n += 1) {
             numbers.push(n);
         }
-        
+
         // 숫자 4개 뽑기
         const answer = []; // 정답을 저장할 배열
         for(let n = 0; n <= 3; n += 1) { 
-            const index = Math.floor(Math.random() * 9); // 0~8의 배열 인덱스 저장
+            // 0~8의 배열 인덱스 저장 (undefined가 나오는 경우를 대비해서 numbers.length으로 변경)
+            const index = Math.floor(Math.random() * numbers.length); 
             answer.push(numbers[index]); // 해당 인덱스의 실제 숫자를 answer 배열에 넣기
             numbers.splice(index, 1); // 뽑은 숫자는 배열에서 제거
         }
