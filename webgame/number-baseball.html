@@ -38,6 +38,28 @@
             numbers.splice(index, 1); // 뽑은 숫자는 배열에서 제거
         }
         console.log(answer);
+        // 입력할 값을 담는 배열
+        const tries = []; 
+        // 입력한 값을 검사할 함수
+        function checkInput(input) {
+            if(input.length !== 4) {
+                return alert('4자리 숫자를 입력하세요.');
+            }
+            if (new Set(input).size !== 4) {
+                return alert('중복된 숫자는 입력할 수 없습니다.');
+            }
+            if(tries.includes(input)) {
+                return alert('이미 입력한 값입니다.');
+            }
+            return true;
+        }
+        // #form 태그에 submit 이벤트 연결하면 버튼 클릭하지 않고도 enter를 눌러 값을 제출 할 수 있다.
+        $form.addEventListener('submit', (event) => { 
+            event.preventDefault(); //폼 태그의 기본 동작을 취소
+            const value = $input.value; //입력한 값을 가져온다.
+            $input.value = ''; // $input 태그 초기화
+            const valid = checkInput(value); // 입력값 검사하고 결과 반환
+        });
     </script>
 </body>
 </html>
