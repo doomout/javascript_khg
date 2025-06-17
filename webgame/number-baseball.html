@@ -73,6 +73,19 @@
                 $logs.appendChild(message);
                 return;
             }
+            // 몇 스트라이크 몇 볼인지 검사
+            let strike = 0; // 스트라이크 수
+            let ball = 0; // 볼 수
+            for(let i = 0; i < answer.length; i++) {
+                const index = value.indexOf(answer[i]);
+                if (index > -1) { // 일치하는 숫자 발견
+                    if (index === i) { // 자릿수도 같음
+                        strike += 1; // 스트라이크 1개 증가
+                    } else { // 숫자만 같으면
+                        ball += 1; // 볼 1개 증가
+                    }
+                }
+            }
         });
     </script>
 </body>
