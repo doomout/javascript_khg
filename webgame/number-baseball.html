@@ -59,6 +59,20 @@
             const value = $input.value; //입력한 값을 가져온다.
             $input.value = ''; // $input 태그 초기화
             const valid = checkInput(value); // 입력값 검사하고 결과 반환
+            // 입력값 검사를 통과 했는지?
+            if(!valid) // 통과 못함
+                return;
+            // 홈런인지 확인    
+            if(answer.join('') === value) {
+                $logs.textContent = '홈런!';
+                return;
+            }
+            // 10회 이상 기회는 배열 길이로 확인한다.
+            if(tries.length >= 9) {
+                const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`);
+                $logs.appendChild(message);
+                return;
+            }
         });
     </script>
 </body>
