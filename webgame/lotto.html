@@ -48,7 +48,7 @@
             return alert('숫자를 입력해주세요.');
         }
         // 입력 값 중 , 제거하여 숫자만 이어 붙임
-        const myNumbers = string.split(',').map((v) => parseInt(v,trim()));
+        const myNumbers = string.split(',').map((v) => parseInt(v.trim()));
         // 정제한 숫자 배열의 길이 확인
         if(myNumbers.length !== 6) {
             return alert('숫자를 6개 입력해주세요.');
