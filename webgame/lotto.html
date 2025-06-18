@@ -28,7 +28,9 @@
 </head>
 <body>
 <form id="form">
-    <input name="input" placeholder="숫자 6개를 쉼표로 구분해 입력하세요."/>
+    로또 프로그램 <br>
+    숫자 6개를 쉼표로 구분해 입력하세요.<br>
+    <input name="input" />
     <button>추첨</button>
 </form>
     <div id="result">당첨 숫자: </div>
@@ -39,6 +41,26 @@
     const $bonus = document.querySelector('#bonus');
     $form.addEventListener('submit', (event) => {
         event.preventDefault();
+        // 입력 값 확인
+        const string = event.target.input.value;
+        // 숫자 입력 확인
+        if(!string.trim()) {
+            return alert('숫자를 입력해주세요.');
+        }
+        // 입력 값 중 , 제거하여 숫자만 이어 붙임
+        const myNumbers = string.split(',').map((v) => parseInt(v,trim()));
+        // 정제한 숫자 배열의 길이 확인
+        if(myNumbers.length !== 6) {
+            return alert('숫자를 6개 입력해주세요.');
+        }
+        // 중복된 숫자 확인
+        if(new Set(myNumbers).size !== 6) {
+            return alert('중복된 숫자는 입력할 수 없습니다.');
+        }
+        // 숫자 범위 확인
+        if(myNumbers.find((v) => v > 45 || v < 1)) {
+            return alert('1~45 사이의 숫자만 입력할 수 있습니다.');
+        }
     });
 </script>
 </body>
