@@ -61,6 +61,16 @@
         if(myNumbers.find((v) => v > 45 || v < 1)) {
             return alert('1~45 사이의 숫자만 입력할 수 있습니다.');
         }
+        // 무작위로 공 뽑기
+        const candidate = Array(45).fill().map((v, i) => i + 1);
+        const shuffle = [];
+        while(candidate.length > 0 ) {
+            const random = Math.floor(Math.random() * candidate.length); // 무작위 인덱스 뽑기
+            const spliceArray = candidate.splice(random, 1); // 뽑은 값을 새로운 배열에 넣기
+            const value = spliceArray[0]; // 새로운 배열에 들어 있는 값 꺼내기
+            shuffle.push(value); // 꺼낸 값을 shuffle 배열에 넣기
+        }
+        console.log(shuffle);
     });
 </script>
 </body>
