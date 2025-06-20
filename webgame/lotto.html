@@ -87,6 +87,13 @@
                 $result.appendChild($ball); //$result 태그 안에 $ball 태그를 추가한다.
             }, 1000 * (i + 1)); // 1초 뒤에 실행
         }
+        // 보너스 공 표시는 7초 뒤에 표시
+        setTimeout(() => {
+            const $ball = document.createElement('div');
+            $ball.className = 'ball';
+            $ball.textContent = bonus; // 이 부분만 다름
+            $bonus.appendChild($ball);
+        }, 7000);
     });
 </script>
 </body>
