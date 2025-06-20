@@ -71,6 +71,12 @@
             shuffle.push(value); // 꺼낸 값을 shuffle 배열에 넣기
         }
         console.log(shuffle);
+        // 뽑은 숫자를 오름 차순으로 정렬
+        const winBalls = shuffle.slice(0, 6).sort((a, b) => a - b);
+        // 보너스 숫자
+        const bonus = shuffle[6];
+        // 결과
+        console.log(winBalls, bonus);
     });
 </script>
 </body>
