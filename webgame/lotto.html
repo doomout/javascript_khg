@@ -77,6 +77,13 @@
         const bonus = shuffle[6];
         // 결과
         console.log(winBalls, bonus);
+        // 공 순서대로 표시하기(1초마다 1개씩 표시)
+        setTimeout(() => { 
+            const $ball = document.createElement('div'); // div 생성
+            $ball.className = 'ball'; //ball 로 클래스 추가
+            $ball.textContent = winBalls[0]; // 태그의 내용물로는 winBalls 배열의 첫 번째 요소를 넣는다.
+            $result.appendChild($ball); //$result 태그 안에 $ball 태그를 추가한다.
+        }, 1000); // 1초 뒤에 실행
     });
 </script>
 </body>
