@@ -109,6 +109,10 @@
         */
         await setTimeoutPromise(1000);
         drawBall(bonus, $bonus); //보너스 공
+        
+        // 보너스 공 표시 되기 전에 결과가 먼저 나오는 현상을 막기 위해 추가
+        await setTimeoutPromise(0);
+
         // 몇 등인지 표시 하기
         let count = 0;
         myNumbers.forEach((my) => {
