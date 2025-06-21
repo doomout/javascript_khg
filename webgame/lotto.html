@@ -39,7 +39,19 @@
     const $form = document.querySelector('#form');
     const $result = document.querySelector('#result');
     const $bonus = document.querySelector('#bonus');
-    $form.addEventListener('submit', (event) => {
+    // 공뽑는 함수
+    function drawBall(number, $parent) {
+        const $ball = document.createElement('div'); // div 생성
+        $ball.className = 'ball'; //ball 로 클래스 추가
+        $ball.textContent = number; // 태그의 내용물로는 해당 숫자를 넣는다.
+        $parent.appendChild($ball); // $parent 태그 안에 $ball 태그를 추가한다.
+    }
+    // Promise 사용
+    const setTimeoutPromise = (ms) => new Promise((resolve, reject) => {
+        setTimeout(resolve, ms);
+    });
+    // async 사용
+    $form.addEventListener('submit',async (event) => {
         event.preventDefault();
         // 입력 값 확인
         const string = event.target.input.value;
@@ -77,30 +89,26 @@
         const bonus = shuffle[6];
         // 결과
         console.log(winBalls, bonus);
-        // 공뽑는 함수
-        function drawBall(number, $parent) {
-            const $ball = document.createElement('div'); // div 생성
-            $ball.className = 'ball'; //ball 로 클래스 추가
-            $ball.textContent = number; // 태그의 내용물로는 해당 숫자를 넣는다.
-            $parent.appendChild($ball); // $parent 태그 안에 $ball 태그를 추가한다.
-        }
-        // 0~5 까지 반복
+        
         for(let i = 0; i < winBalls.length; i++) {
             // 공 순서대로 표시하기(1초마다 1개씩 표시)
+            /* await 사용으로 주석 처리
             setTimeout(() => { 
                 drawBall(winBalls[i], $result);
             }, 1000 * (i + 1)); // 1초 뒤에 실행
+            */
+           await setTimeoutPromise(1000);
+           console.log(winBalls[i], i);
+           drawBall(winBalls[i], $result); // 당첨 공        
         }
         // 보너스 공 표시는 7초 뒤에 표시
+        /* await 로 변경
         setTimeout(() => {
-            /* 이 부분을 함수로 축약
-            const $ball = document.createElement('div');
-            $ball.className = 'ball';
-            $ball.textContent = bonus; // 이 부분만 다름
-            $bonus.appendChild($ball);
-            */
             drawBall(bonus, $bonus); // 보너스 공
         }, 7000);
+        */
+        await setTimeoutPromise(1000);
+        drawBall(bonus, $bonus); //보너스 공
     });
 </script>
 </body>
