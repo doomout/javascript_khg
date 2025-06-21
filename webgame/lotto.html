@@ -109,6 +109,28 @@
         */
         await setTimeoutPromise(1000);
         drawBall(bonus, $bonus); //보너스 공
+        // 몇 등인지 표시 하기
+        let count = 0;
+        myNumbers.forEach((my) => {
+            if (winBalls.includes(my)) {
+                count++;
+            }
+        });
+        if (count === 6) { //6개가 다 맞으면
+            alert('1등 이라니!! 실화?');
+        } else if (count === 5) {
+            if(myNumbers.includes(bonus)) { // 5개 중 보너스가 포함되어 있다면?
+                alert('2등! 크~ 보너스 공까지 맞췄네');
+            } else { // 5개만 맞았다면?
+                alert('3등! 아깝~ ㅠㅠ');
+            }
+        } else if(count === 4) {
+            alert('4등이네? 4개나 맞췄네!!');
+        } else if (count === 3) {
+            alert('3개나 맞췄는데 5등 실화냐?!!');
+        } else {
+            alert('자네가 당첨 되었을꺼 같아?');
+        }
     });
 </script>
 </body>
