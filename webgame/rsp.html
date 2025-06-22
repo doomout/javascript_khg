@@ -38,10 +38,25 @@
         $computer.style.backgroundSize = 'auto 200px';
         // 객체로 묶어 줌
         const rspX = {
-            scissors: '0',
-            rock: '-220px',
-            paper: '-440px'
+            scissors: '0', // 가위
+            rock: '-220px', // 바위
+            paper: '-440px' // 보
         }
+        // 일정 시간 마다 이미지 바꾸기
+        let computerChoice = 'scissors'; // 처음은 가위로 시작
+        const changeComputerHand = () => {
+            if(computerChoice === 'rock') {
+                computerChoice = 'scissors';
+            } else if(computerChoice === 'scissors') {
+                computerChoice = 'paper'; 
+            } else if(computerChoice === 'paper') {
+                computerChoice = 'rock';
+            }
+            $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`;
+            $computer.style.backgroundSize = 'auto 200px';
+        }
+        // 0.05초 마다 실행
+        setInterval(changeComputerHand, 50);
     </script>
 </body>
 </html>
