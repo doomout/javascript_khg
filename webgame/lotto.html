@@ -3,7 +3,7 @@
 2. 1~45 까지의 숫자에서 7개의 숫자를 1초마다 뽑는다.
 3. 사용자가 입력한 6개의 숫자와 비교한다.
 4. 숫자 6개를 모두 맞추면 1등
-5. 숫자 5개와 보너스 숫자 1개를 맞추면 2등
+5. 숫자 5개 중 보너스 숫자까지 맞추면 2등
 6. 숫자 5개를 맞추면 3등
 7. 숫자 4개를 맞추면 4등
 8. 숫자 3개를 맞추면 5등
@@ -28,10 +28,17 @@
 </head>
 <body>
 <form id="form">
-    로또 프로그램 <br>
-    숫자 6개를 쉼표로 구분해 입력하세요.<br>
-    <input name="input" />
-    <button>추첨</button>
+  로또 프로그램 <br>
+  숫자 6개를 입력하세요.<br>
+  <div id="inputs">
+    <input type="number" min="1" max="45" required />
+    <input type="number" min="1" max="45" required />
+    <input type="number" min="1" max="45" required />
+    <input type="number" min="1" max="45" required />
+    <input type="number" min="1" max="45" required />
+    <input type="number" min="1" max="45" required />
+  </div>
+  <button>추첨</button>
 </form>
     <div id="result">당첨 숫자: </div>
     <div id="bonus">보너스 숫자: </div>
@@ -53,14 +60,14 @@
     // async 사용
     $form.addEventListener('submit',async (event) => {
         event.preventDefault();
-        // 입력 값 확인
-        const string = event.target.input.value;
-        // 숫자 입력 확인
-        if(!string.trim()) {
-            return alert('숫자를 입력해주세요.');
+        // 각각의 input 요소에서 값 가져오기
+        const inputs = document.querySelectorAll('#inputs input');
+        const myNumbers = Array.from(inputs).map(input => parseInt(input.value));
+
+        // 입력값 유효성 검사
+        if (myNumbers.some(isNaN)) {
+            return alert('모든 숫자를 입력해주세요.');
         }
-        // 입력 값 중 , 제거하여 숫자만 이어 붙임
-        const myNumbers = string.split(',').map((v) => parseInt(v.trim()));
         // 정제한 숫자 배열의 길이 확인
         if(myNumbers.length !== 6) {
             return alert('숫자를 6개 입력해주세요.');
@@ -70,7 +77,7 @@
             return alert('중복된 숫자는 입력할 수 없습니다.');
         }
         // 숫자 범위 확인
-        if(myNumbers.find((v) => v > 45 || v < 1)) {
+        if (myNumbers.find(v => v < 1 || v > 45)) {
             return alert('1~45 사이의 숫자만 입력할 수 있습니다.');
         }
         // 무작위로 공 뽑기
@@ -92,21 +99,11 @@
         
         for(let i = 0; i < winBalls.length; i++) {
             // 공 순서대로 표시하기(1초마다 1개씩 표시)
-            /* await 사용으로 주석 처리
-            setTimeout(() => { 
-                drawBall(winBalls[i], $result);
-            }, 1000 * (i + 1)); // 1초 뒤에 실행
-            */
            await setTimeoutPromise(1000);
            console.log(winBalls[i], i);
            drawBall(winBalls[i], $result); // 당첨 공        
         }
         // 보너스 공 표시는 7초 뒤에 표시
-        /* await 로 변경
-        setTimeout(() => {
-            drawBall(bonus, $bonus); // 보너스 공
-        }, 7000);
-        */
         await setTimeoutPromise(1000);
         drawBall(bonus, $bonus); //보너스 공
         
