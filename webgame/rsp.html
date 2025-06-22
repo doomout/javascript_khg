@@ -32,8 +32,16 @@
         const $scissors = document.querySelector('#scissors');
         const $paper = document.querySelector('#paper');
         const IMG_URL = `./rsp.png`;
+        // 이미지를 $computer 태그에 넣기
         $computer.style.background = `url(${IMG_URL}) 0 0`;
+        // 가로는 자동, 세로는 200px 로 설정
         $computer.style.backgroundSize = 'auto 200px';
+        // 객체로 묶어 줌
+        const rspX = {
+            scissors: '0',
+            rock: '-220px',
+            paper: '-440px'
+        }
     </script>
 </body>
 </html>
