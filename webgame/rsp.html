@@ -60,15 +60,20 @@
         const clickButton = () => {
             // 멈추기
             clearInterval(intervalId);
+            // 이벤트 제거
+            $rock.removeEventListener('click', clickButton);
+            $scissors.removeEventListener('click', clickButton);
+            $paper.removeEventListener('click', clickButton);
             // 1초 뒤에 다시 바꾸기
             setTimeout(() => {
+                // 가위 바위 보 버튼에 이벤트 연결
+                $rock.addEventListener('click', clickButton);
+                $scissors.addEventListener('click', clickButton);
+                $paper.addEventListener('click', clickButton);
                 intervalId = setInterval(changeComputerHand, 50);
             }, 1000);
         };
-        // 가위 바위 보 버튼에 이벤트 연결
-        $rock.addEventListener('click', clickButton);
-        $scissors.addEventListener('click', clickButton);
-        $paper.addEventListener('click', clickButton);
+        
     </script>
 </body>
 </html>
