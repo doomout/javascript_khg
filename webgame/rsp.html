@@ -55,8 +55,20 @@
             $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`;
             $computer.style.backgroundSize = 'auto 200px';
         }
-        // 0.05초 마다 실행
-        setInterval(changeComputerHand, 50);
+        // 버튼 클릭시 타이머 멈추기
+        let intervalId = setInterval(changeComputerHand, 50);
+        const clickButton = () => {
+            // 멈추기
+            clearInterval(intervalId);
+            // 1초 뒤에 다시 바꾸기
+            setTimeout(() => {
+                intervalId = setInterval(changeComputerHand, 50);
+            }, 1000);
+        };
+        // 가위 바위 보 버튼에 이벤트 연결
+        $rock.addEventListener('click', clickButton);
+        $scissors.addEventListener('click', clickButton);
+        $paper.addEventListener('click', clickButton);
     </script>
 </body>
 </html>
