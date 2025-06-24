@@ -59,11 +59,13 @@
         let intervalId = setInterval(changeComputerHand, 50);
         // 클릭 상태 변수
         let clickable = true;
-        const clickButton = () => {
+        const clickButton = (event) => {
             // 클릭 상태인가
             if (clickable) { //맞으면
                 clearInterval(intervalId); // 멈추기
                 clickable = false; // 클릭 상태 변경
+                // 어떤 버튼이 클릭되었는지 판단
+                const myChoice = event.target.textContent === '바위' ? 'rock' : event.target.textContent === '가위' ? 'scissors' : 'paper';
                 setTimeout(() => {
                     clickable = true; // 1초 뒤에 다시 바꾸기
                     intervalId = setInterval(changeComputerHand, 50);
