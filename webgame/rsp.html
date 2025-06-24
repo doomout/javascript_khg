@@ -57,6 +57,17 @@
         }
         // 버튼 클릭시 타이머 멈추기
         let intervalId = setInterval(changeComputerHand, 50);
+        // 가위 바위 보에 고유 값 지정
+        // 가위: 1, 바위: 0, 보: -1
+        // 사용자\컴퓨터 가위 바위 보
+        // 가위           0    1   2
+        // 바위          -1    0   1
+        // 보            -2   -1   0
+        const scroeTable = {
+            scissors: 1,
+            rock: 0,
+            paper: -1
+        };
         // 클릭 상태 변수
         let clickable = true;
         const clickButton = (event) => {
@@ -66,6 +77,18 @@
                 clickable = false; // 클릭 상태 변경
                 // 어떤 버튼이 클릭되었는지 판단
                 const myChoice = event.target.textContent === '바위' ? 'rock' : event.target.textContent === '가위' ? 'scissors' : 'paper';
+                // 결과 계산
+                const myScore = scroeTable[myChoice];
+                const diff = myScore - scroeTable[computerChoice];
+                // 결과 표시
+                if(diff === 2 || diff === -1) {
+                    console.log('승리');
+                } else if (diff === -1 || diff == 1) {
+                    console.log('패배');
+                } else {
+                    console.log('무승부');
+                }
+                // 1초 뒤에 이미지 다시 가동
                 setTimeout(() => {
                     clickable = true; // 1초 뒤에 다시 바꾸기
                     intervalId = setInterval(changeComputerHand, 50);
