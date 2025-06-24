@@ -70,6 +70,7 @@
         };
         // 클릭 상태 변수
         let clickable = true;
+        let score = 0;
         const clickButton = (event) => {
             // 클릭 상태인가
             if (clickable) { //맞으면
@@ -79,15 +80,22 @@
                 const myChoice = event.target.textContent === '바위' ? 'rock' : event.target.textContent === '가위' ? 'scissors' : 'paper';
                 // 결과 계산
                 const myScore = scroeTable[myChoice];
-                const diff = myScore - scroeTable[computerChoice];
-                // 결과 표시
-                if(diff === 2 || diff === -1) {
-                    console.log('승리');
-                } else if (diff === -1 || diff == 1) {
-                    console.log('패배');
+                const computerScore = scroeTable[computerChoice];
+                const diff = myScore - computerScore;
+                
+                let message; 
+                // 배열에 특정 요소가 있는지 찾는 배열 includes() 메서드 사용
+                if([2, -1].includes(diff)) {
+                    score += 1;
+                    message = '승리';
+                } else if ([-2,1].includes(diff)) {
+                    score -= 1;
+                    message = '패배';
                 } else {
-                    console.log('무승부');
+                    message = '무승부';
                 }
+                // 화면에 점수 표시
+                $score.textContent = `${message} 총: ${score} 점`;
                 // 1초 뒤에 이미지 다시 가동
                 setTimeout(() => {
                     clickable = true; // 1초 뒤에 다시 바꾸기
