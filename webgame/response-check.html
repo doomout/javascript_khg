@@ -1,0 +1,41 @@
+<!-- 반응 속도 테스트
+1. 시작하면 대기 화면인 파란 화면 보인다.
+2. 화면을 클릭하면 준비 화면인 빨간 화면으로 전환 된다.
+3. 준비 화면에서 임의의 시간(2~3초)이 지나면 초록 화면으로 전환된다.
+4. 초록 화면을 클릭하면 초록 화면으로 전환된 시간과 클릭한 시간의 차이를 구해 반응 속도를 측정한다.
+5. 측정속도를 여러번 측정해 평균 시간을 화면에 표시한다. 측정 후에는 다시 파란 화면으로 이동한다.
+6. 빨간 화면일 때 클릭하면 파란 화면으로 바뀌고 '성급했다'는 안내 메세지가 나온다.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>반응속도</title>
+<style>
+    #screen {
+        width: 300px;
+        height: 200px;
+        text-align: center;
+        user-select: none;
+    }
+    #screen.waiting {
+        background-color: aqua;
+    }
+    #screen.ready {
+        background-color: red;
+        color: white;
+    }
+    #screen.now {
+        background-color: greenyellow;
+    }
+</style>
+</head>
+<body>
+<div id="screen" class="waiting">클릭해서 테스트를 시작하세요.</div>
+<div id="result"></div>
+<script>
+    const $screen = document.querySelector('#screen');
+    const $result = document.querySelector('#result');
+</script>
+</body>
+</html>
