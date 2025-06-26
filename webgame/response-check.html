@@ -38,6 +38,7 @@
     const $result = document.querySelector('#result');
     let startTime;
     let endTime;
+    const records = []; // 반응 속도 저장할 배열
     // 화면에 이벤트 리스너 연결
     $screen.addEventListener('click', () => {
         if($screen.classList.contains('waiting')) { // 대기 화면
@@ -53,7 +54,14 @@
         } else if ($screen.classList.contains('ready')) { // 준비 화면
         } else if ($screen.classList.contains('now')) { // 측정 화면
             endTime = new Date(); // 종료시간 저장
-            $result.textContent = `${endTime - startTime}ms`; // 반응 시간 표시
+            const current = endTime - startTime;
+            records.push(current); // 반응 속도 저장
+            // 배열의 모든 합을 구하려면 reduce 메서드 사용
+            const average = records.reduce((a, c) => a + c) / records.length; // 평균 반응 속도 계산
+            $result.textContent = `현재 ${current}ms, 평균: ${average}ms`; // 현재 속도, 평균 속도 표시
+            // 반복해서 저장하기 위해 초기화
+            startTime = null;
+            endTime = null;
             // 대기 화면으로 전환
             $screen.classList.replace('now', 'waiting');
             $screen.textContent = '클릭해서 테스트를 시작하세요.';
