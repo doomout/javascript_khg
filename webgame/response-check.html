@@ -62,7 +62,15 @@
             records.push(current); // 반응 속도 저장
             // 배열의 모든 합을 구하려면 reduce 메서드 사용
             const average = records.reduce((a, c) => a + c) / records.length; // 평균 반응 속도 계산
-            $result.textContent = `현재 ${current}ms, 평균: ${parseInt(average)}ms`; // 현재 속도, 평균 속도 표시(소수점 제거)
+            // 탑 5 반응 속도 구하기
+            const top5 = [...records].sort((a, b) => a - b).slice(0, 5); // records 복사 후 정렬
+            // 화면에 표시
+            $result.innerHTML = `
+                현재: ${current}ms<br> 
+                평균: ${parseInt(average)}ms<br>
+                <strong>가장 빠른 5회:</strong><br>
+                ${top5.map((time, i) => `${i + 1}위: ${time}ms`).join('<br>')}
+            `; 
             // 반복해서 저장하기 위해 초기화
             startTime = null;
             endTime = null;
