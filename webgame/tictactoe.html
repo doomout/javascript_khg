@@ -22,16 +22,35 @@
     const $table = document.createElement('table');
     const $result = document.createElement('div'); // 결과창
     const rows = [];
+    let turn = 'O'; // 차례는 O 부터 시작
+    const callback = (event) => {
+        // 빈 칸이 아닌가?
+        if(event.target.textContent !== '') {
+            console.log('빈 칸이 아닙니다.');
+        } else { // 빈칸이면
+            console.log('빈 칸입니다.');
+            event.target.textContent = turn;
+            // O, X를 번갈아가며 표시하도록 차례를 넘긴다.
+            //turn = turn === 'X' ? 'O' : 'X'; 
+            if(turn === 'X') {
+                turn = 'O';
+            } else {
+                turn = 'X';
+            }
+        }
+    };
     for (let i = 1; i <= 3; i++) {
         const $tr = document.createElement('tr');
         const cells = [];
         for(let j = 1; j <= 3; j++) {
             const $td = document.createElement('td');
+            $td.addEventListener('click', callback); // 클릭한 칸에 O,X 를 넣으려면 td 태그에 클릭 이벤트 리스너를 붙인다.
             cells.push($td);
             $tr.appendChild($td);
         }
         rows.push(cells);
         $table.appendChild($tr);
+        console.log(rows);
     }
     body.appendChild($table);
     body.appendChild($result);
