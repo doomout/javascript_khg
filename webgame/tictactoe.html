@@ -44,13 +44,14 @@
         const cells = [];
         for(let j = 1; j <= 3; j++) {
             const $td = document.createElement('td');
-            $td.addEventListener('click', callback); // 클릭한 칸에 O,X 를 넣으려면 td 태그에 클릭 이벤트 리스너를 붙인다.
+            //$td.addEventListener('click', callback); 
             cells.push($td);
             $tr.appendChild($td);
         }
         rows.push(cells);
         $table.appendChild($tr);
         console.log(rows);
+        $table.addEventListener('click', callback);// 클릭한 칸에 O,X 를 넣으려면 table 태그에 클릭 이벤트 리스너를 붙인다. 
     }
     body.appendChild($table);
     body.appendChild($result);
