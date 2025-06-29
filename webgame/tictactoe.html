@@ -58,20 +58,26 @@
         }
         return hasWinner;
     };
+
     const callback = (event) => {
         // 빈 칸이 아닌가?
         if(event.target.textContent !== '') {
             console.log('빈 칸이 아닙니다.');
+            return;
         } else { // 빈칸이면
             console.log('빈 칸입니다.');
             event.target.textContent = turn;
-            // O, X를 번갈아가며 표시하도록 차례를 넘긴다.
-            //turn = turn === 'X' ? 'O' : 'X'; 
-            if(turn === 'X') {
-                turn = 'O';
-            } else {
-                turn = 'X';
+            const hasWinner = checkWinner(event.target);
+            // 승자가 있으면
+            if (hasWinner) {
+                $result.textContent = `${turn} 승리!`;
+                $table.removeEventListener('click', callback); // 게임 종료
+                return;
             }
+   
+            // O, X를 번갈아가며 표시하도록 차례를 넘긴다.
+            turn = turn === 'X' ? 'O' : 'X'; 
+            
         }
     };
     for (let i = 1; i <= 3; i++) {
