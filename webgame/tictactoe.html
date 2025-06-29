@@ -74,10 +74,21 @@
                 $table.removeEventListener('click', callback); // 게임 종료
                 return;
             }
-   
+            // 승자가 없으면
+            let draw = true;
+            rows.forEach(row => { // 이차원 배열이라 중첩 반복문 사용
+                row.forEach((cell) => {
+                    if(!cell.textContent) {
+                        draw = false;
+                    }
+                });
+            });
+            if (draw) {
+                $result.textContent = '무승부!';
+                return;
+            }
             // O, X를 번갈아가며 표시하도록 차례를 넘긴다.
             turn = turn === 'X' ? 'O' : 'X'; 
-            
         }
     };
     for (let i = 1; i <= 3; i++) {
