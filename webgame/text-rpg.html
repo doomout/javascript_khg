@@ -52,7 +52,17 @@
         </div>
     </div>
 <script>
-    
+    const $startScreen = document.querySelector('#start-screen'); // 초기 화면
+    const $gameMenu = document.querySelector('#game-menu'); // 일반 메뉴 화면
+    const $battleMenu = document.querySelector('#battle-menu'); // 전투 메뉴 화면
+    const $heroName = document.querySelector('#hero-name'); //주인공 이름
+    $startScreen.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = event.target['name-input'].value;
+        $startScreen.style.display = 'none'; // 초기 화면 숨기기
+        $gameMenu.style.display = 'block'; // 일반 메누 화면 보이기
+        $heroName.textContent = name;
+    });
 </script>
 </body>
 </html>
