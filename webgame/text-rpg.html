@@ -97,6 +97,28 @@
         $heroAtt.textContent = `ATT: ${hero.att}`;
         hero.name = name;
     });
+    // 일반 메뉴
+    $gameMenu.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const input = event.target['menu-input'].value;
+        if (input === '1') { // 모험
+            $gameMenu.style.display = 'none'; // 일반 메뉴 화면 숨기기
+            $battleMenu.style.display = 'block'; // 전투 메뉴 화면 보이기
+            // 몬스터 무작위로 가져오기(깊은 복사: 객체의 초기 정보를 바꾸지 않기 위해)
+            monster = JSON.parse(
+                JSON.stringify(monsterList[Math.floor(Math.random() * monsterList.length)])
+            ); 
+            // 상대할 몬스터 정보 표시
+            monster.maxHp = monster.hp;
+            $monsterName.textContent = monster.name;
+            $monsterHp.textContent = `HP: ${monster.hp}/${monster.maxHp}`;
+            $monsterAtt.textContent = `ATT: ${monster.att}`;
+        } else if (input === '2') { // 휴식
+
+        } else if (input === '3') { // 종료
+
+        }
+    });
 </script>
 </body>
 </html>
