@@ -122,8 +122,10 @@
         // 일반 메뉴 메서드
         onGameMenuInput = (event) => {
             event.preventDefault();
+            const input = event.target['menu-input'].value;
             if (input === '1') { // 모험
                 this.changeScreen('battle');
+                this.createMonster(); // 몬스터 생성
             } else if (input === '2') { // 휴식
 
             } else if (input === '3') { // 종료
@@ -142,9 +144,40 @@
             
             }
         }
+        // 몬스터 생성 메서드
+        createMonster(){
+            const randomIndex = Math.floor(Math.random() * this.monsterList.length);
+            const randomMonster = this.monsterList[randomIndex];
+            this.monster = new Monster(
+                randomMonster.name, 
+                randomMonster.hp, 
+                randomMonster.att, 
+                randomMonster.xp
+            );
+            this.updateMonsterStat();
+            this.showMessage(`몬스터와 마주쳤다. ${this.monster.name}인 것 같다.`);
+        }
+        // 몬스터 정보 표시 메서드
+        updateMonsterStat() {
+            const { monster } = this;
+            if (monster === null) {
+                $monsterName.textContent = '';
+                $monsterHp.textContent = '';
+                $monsterAtt.textContent = '';
+                return;
+            }
+            // 상대할 몬스터 정보 표시
+            $monsterName.textContent = monster.name;
+            $monsterHp.textContent = `HP: ${monster.hp}/${monster.maxHp}`;
+            $monsterAtt.textContent = `ATT: ${monster.att}`;
+        }
+        showMessage(text) {
+            $message.textContent = text;
+        }
     }
 
-    class Unit { // 공통 클래스
+    // 공통 클래스
+    class Unit { 
         constructor(name, hp, att, xp) { // 생성자
             this.name = name;
             this.maxHp = hp;
@@ -157,7 +190,8 @@
         }
     }
 
-    class Hero extends Unit { // 주인공 클래스
+    // 주인공 클래스
+    class Hero extends Unit { 
         constructor(name) { // 생성자
             super(name, 100, 10, 0);
             this.lev = 1;
@@ -167,7 +201,8 @@
             this.hp -= monster.att;
         }
     }
-    class Monster extends Unit { // 몬스터 클래스
+    // 몬스터 클래스
+    class Monster extends Unit { 
         
     }
     let game = null;
@@ -176,29 +211,8 @@
         event.preventDefault();
         const name = event.target['name-input'].value;
         game = new Game(name); // 게임 객체 생성
-
     });
-    // 일반 메뉴
-    $gameMenu.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const input = event.target['menu-input'].value;
-        if (input === '1') { // 모험
-            
-            // 몬스터 무작위로 가져오기(깊은 복사: 객체의 초기 정보를 바꾸지 않기 위해)
-            monster = JSON.parse(
-                JSON.stringify(monsterList[Math.floor(Math.random() * monsterList.length)])
-            ); 
-            // 상대할 몬스터 정보 표시
-            monster.maxHp = monster.hp;
-            $monsterName.textContent = monster.name;
-            $monsterHp.textContent = `HP: ${monster.hp}/${monster.maxHp}`;
-            $monsterAtt.textContent = `ATT: ${monster.att}`;
-        } else if (input === '2') { // 휴식
-
-        } else if (input === '3') { // 종료
-
-        }
-    });
+ 
     // 전투 메뉴
     $battleMenu.addEventListener('submit', (event) => {
         event.preventDefault();
