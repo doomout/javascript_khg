@@ -82,7 +82,7 @@
             $gameMenu.addEventListener('submit', this.onGameMenuInput);
             $battleMenu.addEventListener('submit', this.onBattleMenuInput);
             this.changeScreen('game');
-            this.hero = new Hero(name);
+            this.hero = new Hero(name, this);// 주인공 객체 생성할 때 현재 게임을 추가
             this.updateHeroStat();
         }
         // 주인공 정보 표시 메서드
@@ -221,9 +221,10 @@
 
     // 주인공 클래스
     class Hero extends Unit { 
-        constructor(name) { // 생성자
+        constructor(name, game) { // 생성자
             super(name, 100, 10, 0);
             this.lev = 1;
+            this.game = game;
         }
         heal(monster) {
             this.hp += 20;
@@ -237,7 +238,7 @@
                 this.maxHp += 5;
                 this.att += 5;
                 this.hp = this.maxHp;
-                game.showMessage(`레벨 업! ${this.lev}레벨이 되었습니다.`);
+                this.game.showMessage(`레벨 업! ${this.lev}레벨이 되었습니다.`);
             }
         }
     }
