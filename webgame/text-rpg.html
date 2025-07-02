@@ -74,6 +74,14 @@
         hp: 100,
         xp: 0,
         att: 10,
+        attack(monster) { // 몬스터 공격 메서드
+            monster.hp -= this.att;
+            this.hp -= monster.att;
+        },
+        heal() { // 체력 회복 메서드
+            this.hp += 20;
+            this.hp -= monster.att;
+        }
     };
     
     let monster = null;
@@ -117,6 +125,21 @@
 
         } else if (input === '3') { // 종료
 
+        }
+    });
+    // 전투 메뉴
+    $battleMenu.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const input = event.target['battle-input'].value;
+        if (input === '1') { // 1.공격
+            hero.attack(monster);
+            $heroHp.textContent = `HP: ${hero.hp}/${hero.maxHp}`;
+            $monsterHp.textContent = `HP: ${monster.hp}/${monster.maxHp}`;
+            $message.textContent = `${hero.att}의 피해를 주고, ${monster.att}의 피해를 받았다.`;
+        } else if(input === '2') { // 2.회복
+        
+        } else if(input === '3') { // 3.도망
+        
         }
     });
 </script>
