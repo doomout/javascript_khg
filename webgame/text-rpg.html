@@ -129,7 +129,8 @@
             } else if (input === '2') { // 휴식
 
             } else if (input === '3') { // 종료
-
+                this.quit();
+                return;
             }
         }
         // 전투 메뉴 메서드
@@ -172,7 +173,9 @@
                 this.updateMonsterStat();
             
             } else if(input === '3') { // 3. 도망
-            
+                this.changeScreen('game');
+                this.updateHeroStat();
+                this.updateMonsterStat();
             }
         }
         // 몬스터 생성 메서드
@@ -213,6 +216,10 @@
             this.updateMonsterStat();
             $gameMenu.removeEventListener('submit', this.onGameMenuInput);
             $battleMenu.removeEventListener('submit', this.onBattleMenuInput);
+
+            // 💡 주인공 이름 입력창 초기화
+            $startScreen.querySelector('#name-input').value = '';
+
             this.changeScreen('start');
             game = null;
         }
