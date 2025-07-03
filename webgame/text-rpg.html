@@ -159,6 +159,14 @@
             } else if(input === '2') { // 2.회복
                 const { hero, monster } = this;
                 hero.heal(monster);
+
+                // 주인공 체력이 0이면 게임 오버
+                if(hero.hp <= 0) {
+                    this.showMessage(`${hero.lev}레벨에서 전사, 주인공을 새로 생성하세요.`);
+                    this.quit();
+                    return;
+                }
+
                 this.showMessage(`20의 체력을 회복했지만, ${hero.att}의 피해를 받았다.`);
                 this.updateHeroStat();
                 this.updateMonsterStat();
