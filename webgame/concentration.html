@@ -98,6 +98,15 @@
             completed.push(clicked[0]); // 완료 카드 배열에 추가
             completed.push(clicked[1]); // 완료 카드 배열에 추가
             clicked = []; // 클릭한 카드 배열 초기화
+            // 완료된 카드가 전체 카드 수와 같으면 게임 종료
+            if (completed.length !== total) {
+                return;
+            }
+            setTimeout(() => {
+                alert('축하합니다!'); // 게임 완료 알림
+                resetGame(); // 게임 리셋
+            }, 1000);
+            
             return;
         } 
         // 두 카드의 색이 다르면
@@ -128,6 +137,15 @@
             });
         }, 5000); 
 
+    }
+    // 게임 리셋 함수
+    function resetGame() {
+        $wrapper.innerHTML = ''; // 게임 화면 초기화
+        shuffled = []; // 섞인 카드 배열 초기화
+        clicked = []; // 클릭한 카드 배열 초기화
+        completed = []; // 완료된 카드 배열 초기화
+        colorCopy = colors.concat(colors); // 카드 색 복사
+        startGame(); // 게임 시작
     }
     startGame();
 </script>
