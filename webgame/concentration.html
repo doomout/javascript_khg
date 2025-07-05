@@ -56,7 +56,9 @@
     const total = 12; //전체 카드 수
     const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
     let colorCopy = colors.concat(colors); //카드색 복사
-    let shuffled = []; //섞인 카드
+    let shuffled = []; //섞인 카드 배열
+    let clicked = []; //클릭한 카드 배열
+    let completed = []; //완료된 카드 배열
     // 셔플 알고리즘
     function shuffle() {
         for (; colorCopy.length > 0;) {
@@ -80,11 +82,37 @@
         card.appendChild(cardInner);
         return card;
     }
+    // 클릭한 카드 확인 함수
+    function onClickCard() {
+        this.classList.toggle('flipped');
+        clicked.push(this);
+        // 클릭한 카드가 2개가 아니라면
+        if (clicked.length !== 2) {
+            return;                
+        }
+        // 클릭한 두 카드 비교
+        const front1Color = clicked[0].querySelector('.card-front').style.backgroundColor;
+        const front2Color = clicked[1].querySelector('.card-front').style.backgroundColor;
+        // 두 카드의 색이 같으면
+        if (front1Color === front2Color) {
+            completed.push(clicked[0]); // 완료 카드 배열에 추가
+            completed.push(clicked[1]); // 완료 카드 배열에 추가
+            clicked = []; // 클릭한 카드 배열 초기화
+            return;
+        } 
+        // 두 카드의 색이 다르면
+        setTimeout(()=>{
+            clicked[0].classList.remove('flipped'); // 첫번째 카드 뒤집기
+            clicked[1].classList.remove('flipped'); // 두번째 카드 뒤집기
+            clicked = []; // 클릭한 카드 배열 초기화
+        }, 500);
+    }
     // 게임 시작 함수
     function startGame() {
         shuffle();
         for (let i = 0; i < total; i++) {
             const card = createCard(i);
+            card.addEventListener('click', onClickCard); // 이벤트 연결
             $wrapper.appendChild(card);
         }
         // 카드 앞면 보이기
