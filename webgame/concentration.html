@@ -59,6 +59,7 @@
     let shuffled = []; //섞인 카드 배열
     let clicked = []; //클릭한 카드 배열
     let completed = []; //완료된 카드 배열
+    let clickable = false; //카드 클릭 가능 여부
     // 셔플 알고리즘
     function shuffle() {
         for (; colorCopy.length > 0;) {
@@ -84,6 +85,10 @@
     }
     // 클릭한 카드 확인 함수
     function onClickCard() {
+        // 클릭 불가능하거나 이미 완료된 카드이거나 이미 클릭한 카드라면 리턴
+        if (!clickable || completed.includes(this) || clicked[0] === this) {
+            return; 
+        }
         this.classList.toggle('flipped');
         clicked.push(this);
         // 클릭한 카드가 2개가 아니라면
@@ -135,6 +140,7 @@
             document.querySelectorAll('.card').forEach((card) => { 
                 card.classList.remove('flipped');
             });
+            clickable = true; // 카드 클릭 가능
         }, 5000); 
 
     }
@@ -142,9 +148,9 @@
     function resetGame() {
         $wrapper.innerHTML = ''; // 게임 화면 초기화
         shuffled = []; // 섞인 카드 배열 초기화
-        clicked = []; // 클릭한 카드 배열 초기화
         completed = []; // 완료된 카드 배열 초기화
         colorCopy = colors.concat(colors); // 카드 색 복사
+        clickable = false; // 카드 클릭 불가능
         startGame(); // 게임 시작
     }
     startGame();
