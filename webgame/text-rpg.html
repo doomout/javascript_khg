@@ -133,7 +133,6 @@
                 // 주인공과 몬스터 정보 업데이트
                 this.updateHeroStat();
                 this.updateMonsterStat();
-
             } else if (input === '3') { // 종료
                 this.quit();
                 return;
@@ -218,6 +217,8 @@
         quit() {
             this.hero = null;
             this.monster = null;
+            // 메시지도 초기화
+            this.showMessage('');
             this.updateHeroStat();
             this.updateMonsterStat();
             $gameMenu.removeEventListener('submit', this.onGameMenuInput);
