@@ -87,6 +87,19 @@
             const card = createCard(i);
             $wrapper.appendChild(card);
         }
+        // 카드 앞면 보이기
+        document.querySelectorAll('.card').forEach((card, index) => { 
+            setTimeout(() => { 
+                card.classList.add('flipped');
+            }, 1000 + 100 * index); 
+        });
+        // 카드 뒷면 보이기
+        setTimeout(() => { 
+            document.querySelectorAll('.card').forEach((card) => { 
+                card.classList.remove('flipped');
+            });
+        }, 5000); 
+
     }
     startGame();
 </script>
