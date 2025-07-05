@@ -127,6 +127,12 @@
                 this.changeScreen('battle');
                 this.createMonster(); // 몬스터 생성
             } else if (input === '2') { // 휴식
+                this.hero.hp = this.hero.maxHp; // 주인공 체력 최대치로 회복
+                this.showMessage(`체력을 모두 회복했다. 현재 체력: ${this.hero.hp}/${this.hero.maxHp}`);
+                this.changeScreen('game'); // 일반 메뉴 화면으로 돌아감
+                // 주인공과 몬스터 정보 업데이트
+                this.updateHeroStat();
+                this.updateMonsterStat();
 
             } else if (input === '3') { // 종료
                 this.quit();
