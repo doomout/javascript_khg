@@ -60,6 +60,7 @@
     let clicked = []; //클릭한 카드 배열
     let completed = []; //완료된 카드 배열
     let clickable = false; //카드 클릭 가능 여부
+    let startTime; // 게임 시작 시간
     // 셔플 알고리즘
     function shuffle() {
         for (; colorCopy.length > 0;) {
@@ -107,11 +108,14 @@
             if (completed.length !== total) {
                 return;
             }
-            setTimeout(() => {
-                alert('축하합니다!'); // 게임 완료 알림
-                resetGame(); // 게임 리셋
-            }, 1000);
-            
+            else {
+                setTimeout(() => {
+                    const endTime = new Date(); // 게임 종료 시간
+                    const diff = Math.floor((endTime - startTime) / 1000); // 걸린 시간 계산
+                    alert(`축하합니다! 걸린 시간: ${diff}초`);
+                    resetGame(); // 게임 리셋
+                }, 1000);
+            }
             return;
         } 
         // 두 카드의 색이 다르면
@@ -125,6 +129,7 @@
     }
     // 게임 시작 함수
     function startGame() {
+        startTime = new Date(); // 게임 시작 시간 저장
         shuffle();
         for (let i = 0; i < total; i++) {
             const card = createCard(i);
