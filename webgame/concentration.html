@@ -53,14 +53,58 @@
     </body>
 <script>
     const $wrapper = document.querySelector('#wrapper');
-    const total = 12; //전체 카드 수
-    const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
-    let colorCopy = colors.concat(colors); //카드색 복사
-    let shuffled = []; //섞인 카드 배열
-    let clicked = []; //클릭한 카드 배열
-    let completed = []; //완료된 카드 배열
-    let clickable = false; //카드 클릭 가능 여부
-    let startTime; // 게임 시작 시간
+    let total;            // 전체 카드 수
+    let colors;           // 색상 배열
+    let colorCopy;        // 짝 맞추기용 색상 배열
+    let shuffled = [];    // 섞인 카드 배열
+    let clicked = [];     // 클릭한 카드 배열
+    let completed = [];   // 완료된 카드 배열
+    let clickable = false;// 카드 클릭 가능 여부
+    let startTime;        // 게임 시작 시간
+
+    // 카드 수 입력 함수
+    function getUserCardCount() {
+        while (true) {
+            const input = prompt("카드 수를 짝수로 입력하세요 (최소 4장, 최대 20장)", "12");
+            const parsed = parseInt(input);
+            if (isNaN(parsed) || parsed < 4 || parsed > 20 || parsed % 2 !== 0) {
+                alert("❗ 잘못된 입력입니다. 4~20 사이의 짝수만 입력 가능합니다.");
+            } else {
+                total = parsed;
+                break;
+            }
+        }
+    }
+
+    // 색상 복사 시 카드 수에 맞게 조정
+    function generateColorSet(pairCount) {
+        const baseColors = [
+            "#FF6B6B",  // 밝은 레드
+            "#6BCB77",  // 민트 그린
+            "#4D96FF",  // 스카이 블루
+            "#FFC75F",  // 옐로우 오렌지
+            "#A66DD4",  // 퍼플
+            "#FF9671",  // 코랄
+            "#00C9A7",  // 시원한 청록
+            "#F9F871",  // 파스텔 노랑
+            "#845EC2",  // 고급 보라
+            "#0081CF"   // 블루톤
+        ];
+
+        // 필요한 개수만큼 자르거나 랜덤 생성
+        if (pairCount <= baseColors.length) {
+            return baseColors.slice(0, pairCount);
+        }
+
+        // 부족할 경우 랜덤 색상 생성
+        const extra = Array.from({ length: pairCount - baseColors.length }, () => {
+            return '#' + Math.floor(Math.random() * 16777215).toString(16);
+        });
+
+        return baseColors.concat(extra);
+    }
+
+
     // 셔플 알고리즘
     function shuffle() {
         for (; colorCopy.length > 0;) {
@@ -160,6 +204,10 @@
         clickable = false; // 카드 클릭 불가능
         startGame(); // 게임 시작
     }
+
+    getUserCardCount(); // 사용자로부터 카드 수 입력 받기
+    colors = generateColorSet(total / 2); // 필요한 색상만 추출
+    colorCopy = colors.concat(colors); // 짝수니까 2배로 복사
     startGame();
 </script>
 </html>
