@@ -1,0 +1,49 @@
+#game-container {
+    width: 800px;
+    height: 500px;
+    border: 1px solid black;
+    position: relative;
+    overflow: hidden;
+    background-color: #87CEEB; /* Sky blue */
+}
+
+#player {
+    width: 30px;
+    height: 50px;
+    background-color: red;
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+}
+
+.platform {
+    width: 150px;
+    height: 20px;
+    background-color: #228B22; /* Forest green */
+    position: absolute;
+}
+
+#platform1 {
+    bottom: 50px;
+    left: 0px;
+    width: 200px;
+}
+
+#platform2 {
+    bottom: 150px;
+    left: 300px;
+}
+
+#platform3 {
+    bottom: 250px;
+    left: 550px;
+}
+
+#goal {
+    width: 30px;
+    height: 50px;
+    background-color: gold;
+    position: absolute;
+    bottom: 300px;
+    left: 600px;
+}
