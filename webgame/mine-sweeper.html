@@ -127,10 +127,7 @@
         const cellIndex = target.cellIndex;
         const cellData = data[rowIndex][cellIndex];
         if (cellData === CODE.NORMAL) { // 닫힌 칸이면
-            const count = countMine(rowIndex, cellIndex); // 주변 지뢰 개수
-            target.textContent = count || '';
-            target.className = 'opened'; //열린 칸으로
-            data[rowIndex][cellIndex] = count;
+            openAround(rowIndex, cellIndex); // 주변 칸 열기
         } else if (cellData === CODE.MINE) { // 지뢰 칸이라면~
             target.textContent ='펑';
             target.className = 'opened';
@@ -149,6 +146,21 @@
         data[rowIndex][cellIndex] = count;
         return count;
     }
+    // 주변 칸 열기
+    function openAround(rI, cI) {
+        const count = open(rI, cI);
+        if (count === 0) {
+            open(rI - 1, cI - 1);
+            open(rI - 1, cI);
+            open(rI - 1, cI + 1);
+            open(rI, cI - 1);
+            open(rI, cI + 1);
+            open(rI + 1, cI - 1);
+            open(rI + 1, cI);
+            open(rI + 1, cI + 1);
+        }
+    }
+
     // 맵 그리기
     function drawTable() {
         data = plantMine();
