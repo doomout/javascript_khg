@@ -105,6 +105,37 @@
             target.textContent = '';
         }
     }
+    
+    // 주변 지뢰 개수 세기
+    function countMine(rowIndex, cellIndex) {
+        const mines = [CODE.MINE, CODE.QUESTION_MINE, CODE.FLAG_MINE];
+        let i = 0;
+        mines.includes(data[rowIndex - 1]?.[cellIndex - 1]) && i++;
+        mines.includes(data[rowIndex - 1]?.[cellIndex]) && i++;
+        mines.includes(data[rowIndex - 1]?.[cellIndex + 1]) && i++;
+        mines.includes(data[rowIndex][cellIndex - 1]) && i++;
+        mines.includes(data[rowIndex][cellIndex + 1]) && i++;
+        mines.includes(data[rowIndex + 1]?.[cellIndex - 1]) && i++;
+        mines.includes(data[rowIndex + 1]?.[cellIndex]) && i++;
+        mines.includes(data[rowIndex + 1]?.[cellIndex + 1]) && i++;
+        return i;
+    }
+    // 좌클릭 동장
+    function onLeftClick(event) {
+        const target = event.target; // td 태그
+        const rowIndex = target.parentNode.rowIndex;
+        const cellIndex = target.cellIndex;
+        const cellData = data[rowIndex][cellIndex];
+        if (cellData === CODE.NORMAL) { // 닫힌 칸이면
+            const count = countMine(rowIndex, cellIndex); // 주변 지뢰 개수
+            target.textContent = count || '';
+            target.className = 'opened'; //열린 칸으로
+            data[rowIndex][cellIndex] = count;
+        } else if (cellData === CODE.MINE) { // 지뢰 칸이라면~
+            // 나머지는 무시~
+        }
+    }
+
     // 맵 그리기
     function drawTable() {
         data = plantMine();
@@ -120,21 +151,8 @@
             });
             $tbody.appendChild($tr);
             $tbody.addEventListener('contextmenu', onRightClick); // 우클릭 이벤트 등록
+            $tbody.addEventListener('click', onLeftClick); // 좌클릭 이벤트 등록
         })
-    }
-    // 주변 지뢰 개수 세기
-    function countMine(rowIndex, cellIndex) {
-        const mines = [CODE.MINE, CODE.QUESTION_MINE, CODE.FLAG_MINE];
-        let i = 0;
-        mines.includes(data[rowIndex - 1]?.[cellIndex - 1]) && i++;
-        mines.includes(data[rowIndex - 1]?.[cellIndex]) && i++;
-        mines.includes(data[rowIndex - 1]?.[cellIndex + 1]) && i++;
-        mines.includes(data[rowIndex][cellIndex - 1]) && i++;
-        mines.includes(data[rowIndex][cellIndex + 1]) && i++;
-        mines.includes(data[rowIndex + 1]?.[cellIndex - 1]) && i++;
-        mines.includes(data[rowIndex + 1]?.[cellIndex]) && i++;
-        mines.includes(data[rowIndex + 1]?.[cellIndex + 1]) && i++;
-        return i;
     }
     drawTable();
 </script>
