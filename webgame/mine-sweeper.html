@@ -139,6 +139,16 @@
         }
     }
 
+    // 클릭한 칸 열기
+    function open(rowIndex, cellIndex) {
+        const target = $tbody.children[rowIndex]?.children[cellIndex];
+        if (!target) return;
+        const count = countMine(rowIndex, cellIndex);
+        target.textContent = count || '';
+        target.className = 'opened';
+        data[rowIndex][cellIndex] = count;
+        return count;
+    }
     // 맵 그리기
     function drawTable() {
         data = plantMine();
