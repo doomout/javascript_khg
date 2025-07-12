@@ -13,6 +13,7 @@ const player = {
     width: 50,
     height: 50,
     speed: 5,
+    bulletLevel: 1,
 };
 
 // Bullets
@@ -30,6 +31,9 @@ const enemies = [];
 const enemyColors = ['#FF4136', '#FF851B', '#B10DC9', '#2ECC40', '#0074D9']; // 빨강, 주황, 보라, 초록, 파랑
 let enemySpawnTimer = 0;
 const enemySpawnInterval = 60; // 60프레임(약 1초)마다 적 생성
+
+// Power-ups
+const powerUps = [];
 
 // Event Listeners
 document.addEventListener('keydown', (e) => {
@@ -60,15 +64,32 @@ function handleShooting() {
         bulletCooldown--;
     }
 
-    if (keys.Space && bulletCooldown === 0) {
-        const bullet = {
+    const createBullet = (spread) => {
+        return {
             x: player.x + player.width / 2 - 2.5,
             y: player.y,
             width: 5,
             height: 10,
-            speed: bulletSpeed
+            speed: bulletSpeed,
+            spread: spread, // 수평 이동 속도 계수
         };
-        bullets.push(bullet);
+    };
+
+    if (keys.Space && bulletCooldown === 0) {
+        const level = player.bulletLevel;
+        const baseSpread = 0.25;
+
+        // 홀수 레벨은 중앙에 한 발 발사
+        if (level % 2 === 1) {
+            bullets.push(createBullet(0));
+        }
+
+        // 레벨에 따라 양쪽으로 발사
+        for (let i = 1; i <= Math.floor(level / 2); i++) {
+            bullets.push(createBullet(i * baseSpread));
+            bullets.push(createBullet(-i * baseSpread));
+        }
+
         bulletCooldown = bulletCooldownTime; // 쿨타임 초기화
     }
 }
@@ -98,8 +119,10 @@ function spawnEnemies() {
 function updateEntities() {
     // 총알 이동
     for (let i = bullets.length - 1; i >= 0; i--) {
-        bullets[i].y -= bullets[i].speed;
-        if (bullets[i].y < 0) {
+        const b = bullets[i];
+        b.y -= b.speed;
+        b.x += b.spread * b.speed; // 부채꼴 모양으로 퍼지도록 x좌표 변경
+        if (b.y < 0 || b.x < 0 || b.x > canvas.width) {
             bullets.splice(i, 1);
         }
     }
@@ -137,6 +160,14 @@ function updateEntities() {
             enemyBullets.splice(i, 1);
         }
     }
+
+    // 파워업 아이템 이동
+    for (let i = powerUps.length - 1; i >= 0; i--) {
+        powerUps[i].y += powerUps[i].speed;
+        if (powerUps[i].y > canvas.height) {
+            powerUps.splice(i, 1);
+        }
+    }
 }
 
 function checkCollisions() {
@@ -151,6 +182,17 @@ function checkCollisions() {
                 bullets[j].y < enemies[i].y + enemies[i].height &&
                 bullets[j].y + bullets[j].height > enemies[i].y
             ) {
+                const enemy = enemies[i];
+                // 10% 확률로 파워업 아이템 드랍
+                if (Math.random() < 0.1) {
+                    powerUps.push({
+                        x: enemy.x + enemy.width / 2 - 10,
+                        y: enemy.y,
+                        width: 20,
+                        height: 20,
+                        speed: 2,
+                    });
+                }
                 enemies.splice(i, 1);
                 bullets.splice(j, 1);
                 score += 10;
@@ -158,6 +200,23 @@ function checkCollisions() {
             }
         }
     }
+
+    // 플레이어와 파워업 아이템 충돌
+    for (let i = powerUps.length - 1; i >= 0; i--) {
+        const p = powerUps[i];
+        if (
+            player.x < p.x + p.width &&
+            player.x + player.width > p.x &&
+            player.y < p.y + p.height &&
+            player.y + player.height > p.y
+        ) {
+            if (player.bulletLevel < 5) {
+                player.bulletLevel++;
+            }
+            powerUps.splice(i, 1);
+        }
+    }
+
 
     // 플레이어와 적의 충돌
     for (let i = enemies.length - 1; i >= 0; i--) {
@@ -210,17 +269,32 @@ function draw() {
         ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
     });
 
+    // 파워업 아이템 그리기
+    ctx.fillStyle = 'lime';
+    ctx.font = 'bold 16px Arial';
+    powerUps.forEach(p => {
+        ctx.fillRect(p.x, p.y, p.width, p.height);
+        ctx.fillStyle = 'black';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('P', p.x + p.width / 2, p.y + p.height / 2);
+        ctx.fillStyle = 'lime'; // 다음 아이템을 위해 색상 복원
+    });
+
     // 적 그리기
     enemies.forEach(enemy => {
         ctx.fillStyle = enemy.color;
         ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
     });
 
-    // 점수 그리기
+    // UI 그리기
     ctx.fillStyle = 'white';
     ctx.font = '20px Arial';
+    ctx.textBaseline = 'alphabetic';
     ctx.textAlign = 'left';
     ctx.fillText(`Score: ${score}`, 10, 30);
+    ctx.textAlign = 'right';
+    ctx.fillText(`Power: ${player.bulletLevel}`, canvas.width - 10, 30);
 
     // 게임 오버 화면
     if (gameOver) {
