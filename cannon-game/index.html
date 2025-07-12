@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>포 각도 맞추기 게임</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>포격 게임</h1>
+    <div id="instructions">마우스로 조준하고 클릭해서 발사하세요!</div>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div id="controls">
+        <label for="power">파워:</label>
+        <input type="range" id="power" min="10" max="100" value="50">
+        <span id="power-value">50</span>
+    </div>
+    <div id="message"></div>
+    <div id="tries-info">시도 횟수: 0</div>
+</body>
+<script src="game.js"></script>
+</html>
