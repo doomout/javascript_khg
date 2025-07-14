@@ -60,6 +60,9 @@
     let timerId;
     let data;
     let openCount = 0;
+    let firstClick = true; // 첫 클릭 여부
+
+    // 생성 버튼 클릭시
     function onSubmit(event) {
         event.preventDefault();
         row = parseInt(document.querySelector('#row').value);
@@ -75,32 +78,40 @@
             $timer.textContent = `${time}초`;
         }, 1000);
     }
+
+    // 생성 이벤트 등록
     $form.addEventListener('submit', onSubmit);
-    // 무작위로 지뢰 심기
-    function plantMine() {
-        const candidate = Array(row * cell).fill().map((arr, i) => {
-            return i;
-        });
+
+    // 첫 클릭 위치 피해서 지뢰 심기
+    function plantMine(firstRow, firstCell) {
+        const candidate = Array(row * cell).fill().map((_, i) => i);
+        const firstIndex = firstRow * cell + firstCell;
+        candidate.splice(firstIndex, 1); // 첫 클릭 위치는 제거
+
         const shuffle = [];
-        while(candidate.length > row * cell - mine) {
+        while(shuffle.length < mine) {
             const chosen = candidate.splice(Math.floor(Math.random() * candidate.length), 1)[0];
             shuffle.push(chosen);
         }
-        const data = [];
+
+        const newData = [];
         for (let i = 0; i < row; i++) {
             const rowData = [];
-            data.push(rowData);
             for (let j = 0; j < cell; j++) {
                 rowData.push(CODE.NORMAL);
             }
+            newData.push(rowData);
         }
+
         for (let k = 0; k < shuffle.length; k++) {
             const ver = Math.floor(shuffle[k] / cell);
             const hor = shuffle[k] % cell;
-            data[ver][hor] = CODE.MINE;
+            newData[ver][hor] = CODE.MINE;
         }
-        return data;
+
+        return newData;
     }
+
     // 우클릭 동작
     function onRightClick(event) {
         event.preventDefault();
@@ -149,20 +160,34 @@
         mines.includes(data[rowIndex + 1]?.[cellIndex + 1]) && i++;
         return i;
     }
+
     // 좌클릭 동장
     function onLeftClick(event) {
         const target = event.target; // td 태그
         const rowIndex = target.parentNode.rowIndex;
         const cellIndex = target.cellIndex;
+
+        // 첫 클릭시 지뢰를 이 때 심음
+        if(firstClick) {
+            data = plantMine(rowIndex, cellIndex); // 지뢰 심기
+            firstClick = false;
+            openAround(rowIndex, cellIndex);       // 첫 클릭 위치 열기
+            return;
+        }
+
         const cellData = data[rowIndex][cellIndex];
+
         if (cellData === CODE.NORMAL) { // 닫힌 칸이면
             openAround(rowIndex, cellIndex); // 주변 칸 열기
         } else if (cellData === CODE.MINE) { // 지뢰 칸이라면~
-            target.textContent ='펑';
+            target.textContent ='💣';
             target.className = 'opened';
             clearInterval(interval);
             $tbody.removeEventListener('contextmenu', onRightClick); // 우클릭 이벤트 제거
             $tbody.removeEventListener('click', onLeftClick); // 좌클릭 이벤트 제거
+            setTimeout(() => {
+                alert('💥 게임 오버! 지뢰를 밟았습니다.');
+            }, 0);
         }
     }
 
@@ -189,6 +214,7 @@
         }
         return count;
     }
+
     // 주변 칸 열기
     function openAround(rI, cI) {
         setTimeout(() => {
@@ -208,21 +234,22 @@
 
     // 맵 그리기
     function drawTable() {
-        data = plantMine();
-        data.forEach((row) => {
+        data = []; // 초기 빈 배열 생성
+        for (let i = 0; i < row; i++) {
+            const rowData = [];
             const $tr = document.createElement('tr');
-            row.forEach((cell) => {
-
+            for (let j = 0; j < cell; j++) {
+                rowData.push(CODE.NORMAL); // 기본 상태로 초기화
                 const $td = document.createElement('td');
-                if (cell === CODE.MINE) {
-                    $td.textContent = '';
-                }
                 $tr.appendChild($td);
-            });
+            }
+            data.push(rowData); // 각 행 추가
             $tbody.appendChild($tr);
-            $tbody.addEventListener('contextmenu', onRightClick); // 우클릭 이벤트 등록
-            $tbody.addEventListener('click', onLeftClick); // 좌클릭 이벤트 등록
-        })
+        }
+
+        // 이벤트 등록
+        $tbody.addEventListener('contextmenu', onRightClick); // 우클릭 이벤트 등록
+        $tbody.addEventListener('click', onLeftClick); // 좌클릭 이벤트 등록
     }
 </script>
 </body>
