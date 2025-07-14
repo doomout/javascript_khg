@@ -182,6 +182,7 @@
         } else if (cellData === CODE.MINE) { // 지뢰 칸이라면~
             target.textContent ='💣';
             target.className = 'opened';
+            showAllMines(); // 모든 지뢰 표시
             clearInterval(interval);
             $tbody.removeEventListener('contextmenu', onRightClick); // 우클릭 이벤트 제거
             $tbody.removeEventListener('click', onLeftClick); // 좌클릭 이벤트 제거
@@ -250,6 +251,21 @@
         // 이벤트 등록
         $tbody.addEventListener('contextmenu', onRightClick); // 우클릭 이벤트 등록
         $tbody.addEventListener('click', onLeftClick); // 좌클릭 이벤트 등록
+    }
+
+    // 지뢰 밟았을 시 전체 지뢰 보여주는 함수
+    function showAllMines() {
+        for (let i = 0; i < row; i++) {
+            for (let j = 0; j < cell; j++) {
+                if ([CODE.MINE, CODE.QUESTION_MINE, CODE.FLAG_MINE].includes(data[i][j])) {
+                    const td = $tbody.children[i]?.children[j];
+                    if (td) {
+                        td.textContent = '💣';
+                        td.className = 'opened';
+                    }
+                }
+            }
+        }
     }
 </script>
 </body>
