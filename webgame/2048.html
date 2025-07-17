@@ -52,6 +52,7 @@
         });
         $table.appendChild($fragment);
         put2ToRandomCell();
+        draw();
     }
     // 빈칸을 찾아 무작위로 숫자 2 넣기
     function put2ToRandomCell() {
@@ -66,6 +67,22 @@
         const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
         data[randomCell[0]][randomCell[1]] = 2;
     }   
+    // 표에 16개 칸 그리기
+    function draw() {
+        data.forEach((rowData, i) => {
+            rowData.forEach((cellData, j) => {
+                const $target = $table.children[i].children[j];
+                if(cellData > 0) {
+                    $target.textContent = cellData;
+                    $target.className = `color-` + cellData;
+                } else {
+                    $target.textContent = '';
+                    $target.className = '';
+                }
+            });
+        });
+    }
+    startGame();
 </script>
 </body>
 
