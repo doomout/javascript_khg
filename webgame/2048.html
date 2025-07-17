@@ -51,7 +51,21 @@
             $fragment.appendChild($tr);
         });
         $table.appendChild($fragment);
+        put2ToRandomCell();
     }
+    // 빈칸을 찾아 무작위로 숫자 2 넣기
+    function put2ToRandomCell() {
+        const emptyCells = [];
+        data.forEach(function (rowData, i){
+            rowData.forEach(function (cellData, j) {
+                if(!cellData) {
+                    emptyCells.push([i, j]);
+                }
+            });
+        });
+        const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        data[randomCell[0]][randomCell[1]] = 2;
+    }   
 </script>
 </body>
 
