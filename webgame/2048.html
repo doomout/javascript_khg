@@ -83,6 +83,20 @@
         });
     }
     startGame();
+    // 이동 방향 확인하기
+    function moveCells(direction) {}; // 숫자 이동 함수 선언
+    window.addEventListener('keyup', (event) => { // 키보드 이벤트 등록
+        if(event.key === 'ArrowUp') {
+            moveCells('up');
+        } else if (event.key === 'ArrowDown') {
+            moveCells('down');
+        } else if (event.key === 'ArrowLeft') {
+            moveCells('left');
+        } else if (event.key === 'ArrowRight') {
+            moveCells('right');
+        }
+    });
+
 </script>
 </body>
 
