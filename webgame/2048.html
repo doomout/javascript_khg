@@ -178,7 +178,7 @@
                         if(cellData) { 
                             const currentRow = newData[j];
                             const prevData = currentRow.at(-1);
-                            if(prevData === rowData[3 - j]) {
+                            if(prevData === cellData) {
                                 const score = parseInt($score.textContent);
                                 $score.textContent = score + currentRow.at(-1) * 2; // 점수
                                 currentRow[currentRow.length - 1] *= -2; 
