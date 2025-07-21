@@ -115,13 +115,8 @@
             moveCells('up');
         }
     });
-    data = [ // 더미 데이터
-        [32,2,4,2],
-        [64,4,8,4],
-        [2,1024,1024,32],
-        [32,16,64,4],
-    ];
-    draw();
+
+    //draw();
     // 숫자 이동하고 합치기
     function moveCells(direction) {
         switch(direction) {
@@ -133,7 +128,9 @@
                             const currentRow = newData[i];
                             const prevData = currentRow.at(-1);
                             if(prevData === cellData) { // 이전 숫자와 지금 숫자의 값이 같으면
-                                currentRow[currentRow.length - 1] *= -2; //
+                                const score = parseInt($score.textContent);
+                                $score.textContent = score + currentRow.at(-1) * 2; // 점수
+                                currentRow[currentRow.length - 1] *= -2;
                             } else {
                                 newData[i].push(cellData);
                             }
@@ -156,6 +153,8 @@
                             const currentRow = newData[i];
                             const prevData = currentRow.at(-1);
                             if(prevData === rowData[3 - j]) {
+                                const score = parseInt($score.textContent);
+                                $score.textContent = score + currentRow.at(-1) * 2; // 점수
                                 currentRow[currentRow.length - 1] *= -2; 
                             } else {
                                 newData[i].push(rowData[3 - j]);
@@ -180,6 +179,8 @@
                             const currentRow = newData[j];
                             const prevData = currentRow.at(-1);
                             if(prevData === rowData[3 - j]) {
+                                const score = parseInt($score.textContent);
+                                $score.textContent = score + currentRow.at(-1) * 2; // 점수
                                 currentRow[currentRow.length - 1] *= -2; 
                             } else {
                                 newData[j].push(cellData);
@@ -203,6 +204,8 @@
                             const currentRow = newData[j];
                             const prevData = currentRow.at(-1);
                             if(prevData === data[3 - i][j]) {
+                                const score = parseInt($score.textContent);
+                                $score.textContent = score + currentRow.at(-1) * 2; // 점수
                                 currentRow[currentRow.length - 1] *= -2; 
                             } else {
                                 newData[j].push(data[3 - i][j]);
@@ -225,7 +228,7 @@
                 alert(`축하합니다. 2048을 만들었습니다.`);
             }, 0);
         } else if(!data.flat().includes(0)) {
-            alert(`패배 했습니다. ㅜㅜ`);
+            alert(`패배 했습니다. ㅜㅜ ${$score.textContent}점`);
         } else {
             put2ToRandomCell(); // 무작위 위치에 새로운 숫자 2 넣기
             draw();
