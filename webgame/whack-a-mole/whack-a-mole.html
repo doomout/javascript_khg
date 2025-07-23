@@ -128,9 +128,20 @@ $start.addEventListener('click', () => {
     if (started) { return; }
     started = true;
     console.log('시작');
+    const tickId = setInterval(tick, 1000); // 1초 마다 반복
+    tick();
 });
-// 두더지나 폭탄을 빈 구멍에 보여주는 함수
-
+// 두더지를 빈 구멍에서 보여주는 함수
+function tick() {
+    holes.forEach((hole, index) => {
+        const $gopher = $$cells[index].querySelector('.gopher');
+        holes[index] = setTimeout(() => { // 1초 뒤에 사라짐
+            $gopher.classList.add('hidden'); // hidden 클래스 추가. 두더지 내리기
+            holes[index] = 0;
+        }, 1000);
+        $gopher.classList.remove('hidden'); // hidden 클래스 제거. 두더지 올리기
+    });
+}
 // 타이머를 취소할 때 사용
 </script>
 </body>
