@@ -120,6 +120,18 @@ const $score = document.querySelector('#score');
 const $game = document.querySelector('#game');
 const $start = document.querySelector('#start');
 const $$cells = document.querySelectorAll('.cell');
+// 9개 구멍에 대한 정보
+const holes = [0,0,0, 0,0,0, 0,0,0];
+// #start 버튼
+let started = false;
+$start.addEventListener('click', () => {
+    if (started) { return; }
+    started = true;
+    console.log('시작');
+});
+// 두더지나 폭탄을 빈 구멍에 보여주는 함수
+
+// 타이머를 취소할 때 사용
 </script>
 </body>
 </html>
