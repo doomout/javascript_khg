@@ -134,12 +134,17 @@ $start.addEventListener('click', () => {
 // 두더지를 빈 구멍에서 보여주는 함수
 function tick() {
     holes.forEach((hole, index) => {
-        const $gopher = $$cells[index].querySelector('.gopher');
+        // 무언가 일어나고 있으면 멈춤
+        if(hole) { return; }
+        const $bomb = $$cells[index].querySelector('.bomb');
+        //const $gopher = $$cells[index].querySelector('.gopher');
         holes[index] = setTimeout(() => { // 1초 뒤에 사라짐
-            $gopher.classList.add('hidden'); // hidden 클래스 추가. 두더지 내리기
+            //$gopher.classList.add('hidden'); // hidden 클래스 추가. 두더지 내리기
+            $bomb.classList.add('hidden'); // 폭탄 나오기
             holes[index] = 0;
         }, 1000);
-        $gopher.classList.remove('hidden'); // hidden 클래스 제거. 두더지 올리기
+        //$gopher.classList.remove('hidden'); // hidden 클래스 제거. 두더지 올리기
+        $bomb.classList.remove('hidden'); // hidden 클래스 제거. 폭탄 올리기
     });
 }
 // 타이머를 취소할 때 사용
