@@ -124,6 +124,7 @@ const $$cells = document.querySelectorAll('.cell');
 const holes = [0,0,0, 0,0,0, 0,0,0];
 // #start 버튼
 let started = false;
+let score = 0;
 $start.addEventListener('click', () => {
     if (started) { return; }
     started = true;
@@ -159,7 +160,11 @@ function tick() {
 }
 $$cells.forEach(($cell, index) =>{
     $cell.querySelector('.gopher').addEventListener('click', (event) =>{ // 두더지 클릭
-        event.target.classList.add('dead'); // 우는 두더지
+        // 점수 계산
+        if (!event.target.classList.add('dead')) {
+            score += 1;
+            $score.textContent = score;
+        } 
         event.target.classList.add('hidden');
         clearTimeout(holes[index]); // 기존 내려가는 타이머 제거
         setTimeout(() => {
