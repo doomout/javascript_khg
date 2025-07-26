@@ -7,7 +7,7 @@
     .cell {
         display: inline-block; position: relative;
         width: 200px; height: 200px;
-        background: 'yellow'; overflow: hidden;
+        background: yellow; overflow: hidden;
     }
     .gopher, .bomb {
         width: 200px; height: 200px; bottom: 0;
@@ -157,7 +157,26 @@ function tick() {
         }
     });
 }
-// 타이머를 취소할 때 사용
+$$cells.forEach(($cell, index) =>{
+    $cell.querySelector('.gopher').addEventListener('click', (event) =>{ // 두더지 클릭
+        event.target.classList.add('dead'); // 우는 두더지
+        event.target.classList.add('hidden');
+        clearTimeout(holes[index]); // 기존 내려가는 타이머 제거
+        setTimeout(() => {
+            holes[index] = 0;
+            event.target.classList.remove('dead');
+        }, 1000);
+    });
+    $cell.querySelector('.bomb').addEventListener('click', (event) =>{ // 폭탄 클릭
+        event.target.classList.add('boom'); // 폭발하는 폭탄
+        event.target.classList.add('hidden');
+        clearTimeout(holes[index]); // 기존 내려가는 타이머 제거
+        setTimeout(() => {
+            holes[index] = 0;
+            event.target.classList.remove('boom');
+        }, 1000);
+    });
+});
 </script>
 </body>
 </html>
